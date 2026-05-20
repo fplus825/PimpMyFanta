@@ -63,6 +63,20 @@
     .card:hover .arr { color: #f0d060; transform: translateX(3px); }
     .footer { display: flex; justify-content: center; align-items: center; gap: 8px; padding-top: 1rem; border-top: 1px solid #2a2208; position: relative; z-index: 1; }
     .fdot { width: 5px; height: 5px; border-radius: 50%; background: #f0d060; opacity: .15; }
+
+    @media (max-width: 480px) {
+      /* Cronometro più piccolo */
+      .clock-face { width: 42px; height: 42px; }
+      .clock-lbl { font-size: 7px; }
+
+      /* Flip nome lega: pannelli più piccoli */
+      .fc { width: 12px; height: 17px; font-size: 10px; }
+      .fc.sp { width: 4px; }
+      .fc.sup { font-size: 6px; padding-top: 2px; }
+
+      /* Padding ridotto su root */
+      .root { padding: 2rem 1rem 1.5rem; }
+    }
   </style>
 </head>
 <body>

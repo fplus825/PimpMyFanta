@@ -121,8 +121,28 @@
   .legend-item{display:flex;align-items:center;gap:5px}
   .legend-dot{width:10px;height:10px;border-radius:2px}
 
-  @media(max-width:1024px){.scores-grid{grid-template-columns:repeat(2,1fr)}.record-row{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:768px){header{padding:10px 14px}main{padding:10px 14px}.tabs{padding:0 14px;overflow-x:auto;white-space:nowrap}.tab{padding:9px 14px}.tab-toolbar{padding:8px 14px}.scores-grid{grid-template-columns:1fr 1fr}.record-row{grid-template-columns:1fr 1fr}.record-pair-cell{grid-template-columns:1fr}}
+  /* STICKY TEAM COLUMN — always on */
+  .standings-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .standings-table td.team-col,
+  .standings-table th.team-col{position:sticky;left:36px;z-index:2;background:var(--bg2)}
+  .standings-table td.pos-col,
+  .standings-table th.pos-col{position:sticky;left:0;z-index:2;background:var(--bg2)}
+  .standings-table tr:hover td.team-col,
+  .standings-table tr:hover td.pos-col{background:var(--bg3)}
+
+  @media(max-width:1024px){.scores-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:768px){
+    header{padding:10px 14px}main{padding:10px 14px}
+    .tabs{padding:0 14px;overflow-x:auto;white-space:nowrap}.tab{padding:9px 14px}
+    .tab-toolbar{padding:8px 14px}
+    .scores-grid{grid-template-columns:1fr 1fr}
+    .record-pair-cell{grid-template-columns:1fr}
+  }
+  @media(max-width:480px){
+    .streak-row.cols-3{grid-template-columns:1fr 1fr}
+    .chart-wrap{height:220px!important}
+    .scores-grid{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body>
@@ -174,9 +194,10 @@
 <div id="panel-classifica" class="panel active">
   <p id="view-label" class="context-label">Tutte le partite · 26 giornate</p>
   <p class="table-note">PF/PS = Punteggio fantacalcio proprio/avversario &nbsp;·&nbsp; ∅PF/∅PS = media per partita &nbsp;·&nbsp; Forma = ultimi 5 con medie PF/PS</p>
+  <div class="standings-wrap">
   <table class="standings-table">
     <thead><tr>
-      <th style="width:32px">#</th><th>Squadra</th>
+      <th class="pos-col" style="width:32px">#</th><th class="team-col">Squadra</th>
       <th class="center">Pts</th><th class="center">G</th><th class="center">V</th><th class="center">P</th><th class="center">S</th>
       <th class="center">GF</th><th class="center">GS</th><th class="center">DR</th>
       <th class="center">PF</th><th class="center">PS</th><th class="center">∅PF</th><th class="center">∅PS</th>
@@ -184,6 +205,7 @@
     </tr></thead>
     <tbody id="standings-body"></tbody>
   </table>
+  </div>
 </div>
 
 <!-- ANDAMENTO -->
@@ -205,6 +227,10 @@
   <div class="chart-card">
     <h3>📊 Distribuzione V/P/S per Squadra</h3>
     <div class="chart-wrap" style="height:280px"><canvas id="wdlChart"></canvas></div>
+  </div>
+  <div class="chart-card" style="display:none">
+    <h3>🔢 Punteggio Fantacalcio Cumulativo per Giornata</h3>
+    <div class="chart-wrap" style="height:400px"><canvas id="pfChart"></canvas></div>
   </div>
 </div>
 
@@ -354,6 +380,11 @@ const TOTAL_GIORNATE=28;
 
 function shortName(n){if(n==='a vreNZOLA e a malafemMINA')return 'vreNZOLA';if(n==='Atletico Mui Mui')return 'Atl. Mui Mui';return n;}
 
+const PF_MATCH_RECORDS={
+  top:{team:"Fatece Largo",opp:"Aston INPS",pf:93.5,result:"3-2",g:16},
+  flop:{team:"Ve victis",opp:"Fatece Largo",pf:55.0,result:"0-3",g:6}
+};
+
 // ── CLASSIFICA ────────────────────────────────────────────────────────────────
 let currentView='total';
 function setView(view,btn){
@@ -373,16 +404,16 @@ function renderStandings(){
     const posClass=['pos-1','pos-2','pos-3'][idx]||'pos-other';
     const drColor=dr>0?'var(--win)':dr<0?'var(--loss)':'var(--text2)';
     tbody.innerHTML+=`<tr>
-      <td><span class="pos-badge ${posClass}">${idx+1}</span></td>
-      <td><span class="team-name-cell" style="color:${TEAM_COLORS[team]}">${team}</span></td>
+      <td class="pos-col"><span class="pos-badge ${posClass}">${idx+1}</span></td>
+      <td class="team-col"><span class="team-name-cell" style="color:${TEAM_COLORS[team]}">${team}</span></td>
       <td class="center pts-cell">${d.pts}</td>
       <td class="center mono">${d.w+d.d+d.l}</td>
       <td class="center mono">${d.w}</td><td class="center mono">${d.d}</td><td class="center mono">${d.l}</td>
       <td class="center mono">${d.gf}</td><td class="center mono">${d.ga}</td>
       <td class="center mono" style="color:${drColor}">${dr>0?'+':''}${dr}</td>
-      <td class="center score-cell" style="color:var(--accent2)">${d.score_for.toFixed(1)}</td>
+      <td class="center score-cell" style="color:var(--accent)">${d.score_for.toFixed(1)}</td>
       <td class="center score-cell" style="color:var(--text2)">${d.score_ag.toFixed(1)}</td>
-      <td class="center score-cell" style="color:var(--accent2)">${d.avg_pf}</td>
+      <td class="center score-cell" style="color:var(--accent)">${d.avg_pf}</td>
       <td class="center score-cell" style="color:var(--text2)">${d.avg_ps}</td>
       <td style="padding-right:6px"><div class="form-dots">${l5.results.map(r=>`<div class="dot dot-${r}">${r}</div>`).join('')}<span class="form-avg" style="color:var(--accent2)">${l5.avg_pf}</span><span class="form-avg">/ ${l5.avg_ps}</span></div></td>
     </tr>`;
@@ -423,6 +454,31 @@ function buildHeatmap(){
     html+='</tr>';
   });
   table.innerHTML=html+'</tbody>';
+}
+function buildPfChart(){
+  const labels=Array.from({length:TOTAL_GIORNATE},(_,i)=>`G${i+1}`);
+  new Chart(document.getElementById('pfChart'),{type:'line',
+    data:{labels,datasets:allTeams.map(team=>({
+      label:shortName(team),
+      data:(()=>{let c=0;return DATA[team].results.total.map((_,i)=>{c+=DATA[team].total.score_for/TOTAL_GIORNATE;return 0;})})()||
+        (()=>{
+          // build per-giornata score_for from total avg as fallback
+          // actually compute cumulative from per-match data embedded in results sequence
+          // We use score_for total / giornate as uniform — but we need per-match
+          // Use avg_pf per giornata approximation
+          let scores=[];let cum=0;
+          for(let i=0;i<DATA[team].results.total.length;i++){
+            cum+=DATA[team].total.avg_pf;
+            scores.push(Math.round(cum*10)/10);
+          }
+          return scores;
+        })(),
+      borderColor:TEAM_COLORS[team],backgroundColor:TEAM_COLORS[team]+'20',
+      borderWidth:2.5,pointRadius:3,pointHoverRadius:6,tension:0.3,fill:false
+    }))},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false}},
+      scales:{x:{ticks:{color:'#9090a0',font:{family:'JetBrains Mono',size:10}},grid:{color:'#2a2a35'}},y:{ticks:{color:'#9090a0',font:{family:'JetBrains Mono',size:10}},grid:{color:'#2a2a35'}}}}
+  });
 }
 function buildWDLChart(){
   new Chart(document.getElementById('wdlChart'),{type:'bar',
@@ -556,39 +612,37 @@ function renderRecords(){
   const sb=(t,k)=>DATA[t].streaks[v][k].best;
   const pnBest=(t,type)=>DATA[t].streaks[v].pos_neg[type];
 
-  function pill(icon,label,val,team,color){
-    color=color||TEAM_COLORS[team];
-    return `<div class="record-pill">
-      <span class="record-pill-icon">${icon}</span>
-      <span class="record-pill-label">${label}</span>
-      <span class="record-pill-val">${val}</span>
-      <span class="record-pill-team" style="color:${color}">${shortName(team)}</span>
-    </div>`;
+  function pill(icon,label,val,team){
+    return `<div class="record-pill"><span class="record-pill-icon">${icon}</span><span class="record-pill-label">${label}</span><span class="record-pill-val">${val}</span><span class="record-pill-team" style="color:${TEAM_COLORS[team]}">${shortName(team)}</span></div>`;
   }
-
   function pillFull(icon,label,val,detail){
-    return `<div class="record-pill record-full">
-      <span class="record-pill-icon">${icon}</span>
-      <span class="record-pill-label">${label}</span>
-      <span class="record-pill-val">${val}</span>
-      <span class="record-pill-detail">${detail}</span>
-    </div>`;
+    return `<div class="record-pill record-full"><span class="record-pill-icon">${icon}</span><span class="record-pill-label">${label}</span><span class="record-pill-val">${val}</span><span class="record-pill-detail">${detail}</span></div>`;
   }
-
   function pair(p1,p2){return `<div class="record-pair-cell">${p1}${p2}</div>`;}
   function row(...items){return `<div class="record-row">${items.join('')}</div>`;}
 
-  const bPts=best(t=>g(t,'pts')),wPts=worst(t=>g(t,'pts'));
-  const bW=best(t=>g(t,'w')),bL=best(t=>g(t,'l'));
-  const bGF=best(t=>g(t,'gf')),bGA=best(t=>g(t,'ga'));
-  const bDR=best(t=>g(t,'gf')-g(t,'ga')),wDR=worst(t=>g(t,'gf')-g(t,'ga'));
-  const bAvgPF=best(t=>g(t,'avg_pf')),wAvgPF=worst(t=>g(t,'avg_pf'));
-  const bCS=best(t=>DATA[t].clean_sheets[v]),wCS=worst(t=>DATA[t].clean_sheets[v]);
-  const bSW=best(t=>sb(t,'win')),bSL=best(t=>sb(t,'loss'));
-  const bSU=best(t=>pnBest(t,'best_pos')),bSWL=best(t=>pnBest(t,'best_neg'));
-  const bSC=best(t=>sb(t,'cs')),bSCon=best(t=>sb(t,'conceded'));
-  const bSG=best(t=>sb(t,'scored')),bSNG=best(t=>sb(t,'no_goal'));
+  const bPts=best(t=>g(t,'pts')),   wPts=worst(t=>g(t,'pts'));
+  const bW=best(t=>g(t,'w')),       wW=worst(t=>g(t,'w'));
+  const bL=best(t=>g(t,'l')),       wL=worst(t=>g(t,'l'));
+  const bGF=best(t=>g(t,'gf')),     wGF=worst(t=>g(t,'gf'));
+  const bGA=best(t=>g(t,'ga')),     wGA=worst(t=>g(t,'ga'));
+  const bDR=best(t=>g(t,'gf')-g(t,'ga')), wDR=worst(t=>g(t,'gf')-g(t,'ga'));
+  const bAvgPF=best(t=>g(t,'avg_pf')), wAvgPF=worst(t=>g(t,'avg_pf'));
+  const bAvgPS=best(t=>g(t,'avg_ps')), wAvgPS=worst(t=>g(t,'avg_ps'));
+  const bCS=best(t=>DATA[t].clean_sheets[v]), wCS=worst(t=>DATA[t].clean_sheets[v]);
+  const bSW=best(t=>sb(t,'win')),    bSL=best(t=>sb(t,'loss'));
+  const bSU=best(t=>pnBest(t,'best_pos')), bSWL=best(t=>pnBest(t,'best_neg'));
+  const bSC=best(t=>sb(t,'cs')),     bSCon=best(t=>sb(t,'conceded'));
+  const bSG=best(t=>sb(t,'scored')), bSNG=best(t=>sb(t,'no_goal'));
   const bSD=best(t=>sb(t,'draw'));
+
+  // Per-match PF records (total only — scope-independent)
+  const pfMatchRows = v==='total' ? (()=>{
+    const topMatch = PF_MATCH_RECORDS.top;
+    const flopMatch = PF_MATCH_RECORDS.flop;
+    return row(pillFull('⭐','PF più alto — singola giornata', topMatch.pf, `${shortName(topMatch.team)} vs ${shortName(topMatch.opp)} ${topMatch.result} (G${topMatch.g})`)) +
+           row(pillFull('💤','PF più basso — singola giornata', flopMatch.pf, `${shortName(flopMatch.team)} vs ${shortName(flopMatch.opp)} ${flopMatch.result} (G${flopMatch.g})`));
+  })() : '';
 
   const specialRows = v==='total' ? `
     ${row(pillFull('🔥','Punteggio somma più alto',SPECIAL.best_sum.sum,`${shortName(SPECIAL.best_sum.home)} ${SPECIAL.best_sum.sh} · ${shortName(SPECIAL.best_sum.away)} ${SPECIAL.best_sum.sa} (G${SPECIAL.best_sum.g})`))}
@@ -597,21 +651,49 @@ function renderRecords(){
   ` : '';
 
   sec.innerHTML=
-    row(pair(pill('🥇','Più punti',          g(bPts,'pts')+' pts',                   bPts), pill('📉','Meno punti',          g(wPts,'pts')+' pts',                   wPts)))+
-    row(pair(pill('🏆','Più vittorie',        g(bW,'w')+' V',                          bW),  pill('💀','Più sconfitte',       g(bL,'l')+' S',                          bL)))+
-    row(pair(pill('⚽','Più gol segnati',     g(bGF,'gf')+' GF',                       bGF), pill('🚨','Più gol subiti',      g(bGA,'ga')+' GS',                       bGA)))+
-    row(pair(pill('📊','Miglior DR',          '+'+(g(bDR,'gf')-g(bDR,'ga')),           bDR), pill('📉','Peggior DR',          ''+(g(wDR,'gf')-g(wDR,'ga')),            wDR)))+
-    row(pair(pill('📈','∅PF più alta',        g(bAvgPF,'avg_pf'),                      bAvgPF),pill('📉','∅PF più bassa',    g(wAvgPF,'avg_pf'),                      wAvgPF)))+
-    row(pair(pill('🧤','Più clean sheet',     DATA[bCS].clean_sheets[v]+' CS',         bCS), pill('🙈','Meno clean sheet',    DATA[wCS].clean_sheets[v]+' CS',         wCS)))+
-    row(pair(pill('🔥','Serie vittorie',      sb(bSW,'win')+' di fila',                bSW), pill('☠️','Serie sconfitte',     sb(bSL,'loss')+' di fila',               bSL)))+
-    row(pair(pill('🛡','Serie positiva',      pnBest(bSU,'best_pos')+' di fila',       bSU), pill('😰','Serie negativa',      pnBest(bSWL,'best_neg')+' di fila',      bSWL)))+
-    row(pair(pill('🧤','Serie CS',            sb(bSC,'cs')+' di fila',                 bSC), pill('💥','Serie gol subiti',    sb(bSCon,'conceded')+' di fila',         bSCon)))+
-    row(pair(pill('⚽','Serie in gol',        sb(bSG,'scored')+' di fila',             bSG), pill('🫙','Serie a secco',       sb(bSNG,'no_goal')+' di fila',           bSNG)))+
-    row(pair(pill('🤝','Serie pareggi',       sb(bSD,'draw')+' di fila',               bSD), '<div></div>'))+
+    row(pair(pill('🥇','Più punti',          g(bPts,'pts')+' pts', bPts),  pill('📉','Meno punti',          g(wPts,'pts')+' pts', wPts)))+
+    row(pair(pill('🏆','Più vittorie',        g(bW,'w')+' V',       bW),    pill('🕊️','Meno vittorie',       g(wW,'w')+' V',       wW)))+
+    row(pair(pill('💀','Più sconfitte',       g(bL,'l')+' S',       bL),    pill('🛡','Meno sconfitte',      g(wL,'l')+' S',       wL)))+
+    row(pair(pill('⚽','Più gol segnati',     g(bGF,'gf')+' GF',    bGF),   pill('😶','Meno gol segnati',    g(wGF,'gf')+' GF',    wGF)))+
+    row(pair(pill('🚨','Più gol subiti',      g(bGA,'ga')+' GS',    bGA),   pill('🧱','Meno gol subiti',     g(wGA,'ga')+' GS',    wGA)))+
+    row(pair(pill('📊','Miglior DR',          '+'+(g(bDR,'gf')-g(bDR,'ga')), bDR), pill('📉','Peggior DR', ''+(g(wDR,'gf')-g(wDR,'ga')), wDR)))+
+    row(pair(pill('📈','∅PF più alta',        g(bAvgPF,'avg_pf'),   bAvgPF),pill('📉','∅PF più bassa',      g(wAvgPF,'avg_pf'),   wAvgPF)))+
+    row(pair(pill('📈','∅PS più alta',        g(bAvgPS,'avg_ps'),   bAvgPS),pill('📉','∅PS più bassa',      g(wAvgPS,'avg_ps'),   wAvgPS)))+
+    row(pair(pill('🧤','Più clean sheet',     DATA[bCS].clean_sheets[v]+' CS', bCS), pill('🙈','Meno clean sheet', DATA[wCS].clean_sheets[v]+' CS', wCS)))+
+    row(pair(pill('🔥','Serie vittorie',      sb(bSW,'win')+' di fila',  bSW),  pill('☠️','Serie sconfitte',  sb(bSL,'loss')+' di fila',  bSL)))+
+    row(pair(pill('🛡','Serie positiva',      pnBest(bSU,'best_pos')+' di fila', bSU), pill('😰','Serie negativa', pnBest(bSWL,'best_neg')+' di fila', bSWL)))+
+    row(pair(pill('🧤','Serie CS',            sb(bSC,'cs')+' di fila',    bSC),  pill('💥','Serie gol subiti', sb(bSCon,'conceded')+' di fila', bSCon)))+
+    row(pair(pill('⚽','Serie in gol',        sb(bSG,'scored')+' di fila', bSG),  pill('🫙','Serie a secco',   sb(bSNG,'no_goal')+' di fila', bSNG)))+
+    row(pair(pill('🤝','Serie pareggi',       sb(bSD,'draw')+' di fila',  bSD),  '<div></div>'))+
+    pfMatchRows+
     specialRows;
 }
 
 // ── TAB SWITCHING ─────────────────────────────────────────────────────────────
+const PF_CUMULATIVE={
+  "Aston INPS":[77.0,145.5,216.0,301.5,381.5,459.5,530.0,597.5,675.5,745.5,808.0,885.5,959.0,1029.5,1098.0,1167.0,1233.5,1306.0,1375.0,1438.0,1514.5,1585.5,1660.0,1726.0,1791.5,1863.0,1933.0,2004.5],
+  "Atletico Mui Mui":[71.5,139.5,204.0,266.0,330.0,397.0,457.0,535.5,608.0,676.5,752.0,816.0,893.5,961.5,1028.5,1111.5,1177.0,1244.0,1318.0,1396.0,1472.0,1546.0,1615.0,1684.0,1764.0,1839.5,1903.0,1976.5],
+  "AveLinoBanfi":[66.0,132.5,205.5,270.0,339.5,413.5,478.5,544.0,610.0,674.0,738.5,801.5,864.5,933.0,1000.0,1070.5,1146.0,1221.5,1294.0,1357.0,1445.0,1518.0,1597.5,1681.5,1750.5,1823.0,1906.0,1986.0],
+  "Black Power":[71.5,139.0,222.0,288.5,359.5,424.0,489.5,566.0,643.5,719.5,796.5,870.0,937.0,1005.5,1082.5,1152.0,1230.0,1307.0,1383.0,1452.0,1521.0,1580.0,1659.0,1743.5,1806.5,1876.5,1951.5,2032.5],
+  "Fatece Largo":[82.5,159.0,244.5,312.0,383.5,456.5,520.0,598.5,679.5,748.0,826.0,903.5,974.5,1051.5,1124.0,1217.5,1302.0,1382.0,1454.5,1534.5,1599.0,1672.0,1745.5,1811.5,1890.0,1962.5,2029.0,2105.0],
+  "Guacamole":[77.5,165.5,225.0,288.5,357.0,425.5,490.5,568.5,640.5,706.5,784.0,850.0,926.5,1008.5,1080.5,1154.5,1232.5,1301.0,1377.0,1453.5,1528.0,1602.5,1681.5,1753.5,1822.5,1890.0,1956.0,2030.0],
+  "Ve victis":[67.0,129.5,195.5,260.0,321.5,393.0,448.0,521.0,586.0,650.5,711.5,781.0,848.5,922.5,980.5,1053.5,1133.0,1201.0,1265.5,1342.5,1408.5,1482.0,1550.5,1625.5,1700.0,1773.0,1842.0,1914.0],
+  "a vreNZOLA e a malafemMINA":[64.5,141.5,213.0,289.5,366.0,439.5,510.0,593.5,664.0,739.5,809.0,879.0,964.5,1043.5,1107.5,1187.0,1254.5,1324.5,1386.5,1466.5,1533.5,1598.5,1668.0,1749.0,1821.0,1900.0,1967.5,2045.0],
+};
+
+function buildPfChart(){
+  const labels=Array.from({length:TOTAL_GIORNATE},(_,i)=>`G${i+1}`);
+  new Chart(document.getElementById('pfChart'),{type:'line',
+    data:{labels,datasets:allTeams.map(team=>({
+      label:shortName(team),data:PF_CUMULATIVE[team],
+      borderColor:TEAM_COLORS[team],backgroundColor:TEAM_COLORS[team]+'20',
+      borderWidth:2.5,pointRadius:3,pointHoverRadius:6,tension:0.3,fill:false
+    }))},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false}},
+      scales:{x:{ticks:{color:'#9090a0',font:{family:'JetBrains Mono',size:10}},grid:{color:'#2a2a35'}},y:{ticks:{color:'#9090a0',font:{family:'JetBrains Mono',size:10}},grid:{color:'#2a2a35'}}}}
+  });
+}
+
 const initialized={classifica:true,andamento:false,performance:false,topflop:false};
 const toolbars={classifica:'toolbar-classifica',andamento:'toolbar-andamento',performance:'toolbar-performance',topflop:'toolbar-topflop'};
 function switchTab(name,event){
@@ -623,7 +705,7 @@ function switchTab(name,event){
   document.getElementById(toolbars[name]).style.display='flex';
   if(!initialized[name]){
     initialized[name]=true;
-    if(name==='andamento'){buildProgressChart();buildHeatmap();buildAndamentoFilter();buildWDLChart();}
+    if(name==='andamento'){buildProgressChart();buildHeatmap();buildAndamentoFilter();buildWDLChart();buildPfChart();}
     if(name==='performance'){buildStreakChart();}
     if(name==='topflop'){renderScoresGrid();renderRecords();}
   }
