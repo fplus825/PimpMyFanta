@@ -10,30 +10,29 @@
   :root{--bg:#0a0a0f;--bg2:#111118;--bg3:#18181f;--border:#2a2a35;--accent:#e8ff5a;--accent2:#5affb8;--text:#f0f0f5;--text2:#9090a0;--win:#5affb8;--draw:#ffd060;--loss:#ff6b6b;--neutral-color:#c084fc;--win-bg:rgba(90,255,184,0.12);--draw-bg:rgba(255,208,96,0.12);--loss-bg:rgba(255,107,107,0.12)}
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
-
   header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 28px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:200}
   .logo-badge{width:34px;height:34px;background:var(--neutral-color);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
   header h1{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:2px}
   header p{font-size:11px;color:var(--text2);letter-spacing:1px;text-transform:uppercase}
   .header-right{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text2)}
   .badge-live{background:var(--neutral-color);color:#000;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;letter-spacing:1px}
-
   .tabs{display:flex;padding:0 28px;border-bottom:1px solid var(--border);background:var(--bg2);position:sticky;top:54px;z-index:190}
   .tab{padding:9px 18px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;letter-spacing:.5px}
   .tab:hover{color:var(--text)} .tab.active{color:var(--neutral-color);border-bottom-color:var(--neutral-color)}
-
   .tab-toolbar{background:var(--bg);border-bottom:1px solid var(--border);padding:8px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:90px;z-index:180}
   .tab-toolbar .section-title{margin-bottom:0}
-
   main{padding:14px 28px;max-width:1500px;margin:0 auto}
   .panel{display:none} .panel.active{display:block}
   .section-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--text2);margin-bottom:10px;text-transform:uppercase}
   .sub-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--text2);margin-bottom:10px;text-transform:uppercase}
-
   .toggle-bar{display:flex;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:3px;width:fit-content}
   .toggle-btn{padding:5px 14px;border-radius:7px;border:none;background:transparent;color:var(--text2);font-size:12px;font-weight:500;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;letter-spacing:.5px}
   .toggle-btn:hover{color:var(--text)} .toggle-btn.active{background:var(--neutral-color);color:#000;font-weight:700}
-
+  /* STICKY TEAM COLUMN */
+  .standings-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .standings-table td.team-col,.standings-table th.team-col{position:sticky;left:36px;z-index:2;background:var(--bg2)}
+  .standings-table td.pos-col,.standings-table th.pos-col{position:sticky;left:0;z-index:2;background:var(--bg2)}
+  .standings-table tr:hover td.team-col,.standings-table tr:hover td.pos-col{background:var(--bg3)}
   /* TABLE */
   .standings-table{width:100%;border-collapse:collapse;margin-bottom:6px}
   .standings-table th{font-size:10px;letter-spacing:1.2px;color:var(--text2);text-transform:uppercase;text-align:left;padding:7px 9px;border-bottom:1px solid var(--border);font-weight:500;white-space:nowrap}
@@ -55,14 +54,12 @@
   .form-avg{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap;margin-left:5px}
   .context-label{font-size:10px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;padding-top:10px}
   .table-note{font-size:10px;color:var(--text2);margin-bottom:10px}
-
   /* CHART */
   .chart-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px}
   .chart-card h3{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--text2);margin-bottom:14px}
   .chart-wrap{position:relative;height:320px}
   .chart-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
   .chart-toolbar h3{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--text2);margin:0}
-
   /* PUNTEGGI */
   .scores-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
   .score-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px}
@@ -71,7 +68,6 @@
   .score-kpi{background:var(--bg);border-radius:6px;padding:7px 8px;text-align:center}
   .score-kpi-val{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;line-height:1}
   .score-kpi-lbl{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
-
   /* STREAK CARDS */
   .streak-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;margin-bottom:20px}
   .streak-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;transition:border-color .2s}
@@ -94,7 +90,6 @@
   .sstat-line{display:flex;align-items:baseline;gap:5px}
   .sstat-current{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;line-height:1}
   .sstat-ref{font-size:10px;color:var(--text2);font-family:'JetBrains Mono',monospace;white-space:nowrap}
-
   /* RECORDS */
   .records-section{margin-bottom:20px}
   .record-row{display:flex;flex-direction:column;gap:4px;margin-bottom:4px}
@@ -106,10 +101,8 @@
   .record-pill-val{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--neutral-color);white-space:nowrap;flex-shrink:0;min-width:80px}
   .record-pill-team{font-size:11px;white-space:nowrap;margin-left:auto;padding-left:6px}
   .record-pill-detail{font-size:11px;color:var(--text2);white-space:nowrap;margin-left:auto;padding-left:6px;font-family:'JetBrains Mono',monospace}
-
   .team-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
   .team-btn{padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:11px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
-
   .heatmap-wrap{overflow-x:auto;background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px}
   .heatmap-wrap h3{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--text2);margin-bottom:14px}
   .heatmap-table{border-collapse:collapse;min-width:700px;width:100%}
@@ -117,35 +110,29 @@
   .heatmap-table td{width:24px;height:24px;text-align:center;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;border-radius:3px}
   .hm-team-name{text-align:left!important;font-size:11px;font-weight:600;padding-right:8px;white-space:nowrap;width:auto}
   .hm-W{background:var(--win);color:#000} .hm-D{background:var(--draw);color:#000} .hm-L{background:var(--loss);color:#fff}
-  .hm-sep{background:transparent;width:6px}
   .legend{display:flex;gap:14px;margin-top:10px;font-size:11px;color:var(--text2);align-items:center}
   .legend-item{display:flex;align-items:center;gap:5px}
   .legend-dot{width:10px;height:10px;border-radius:2px}
-
-  /* Neutral badge */
   .neutral-badge{display:inline-block;background:rgba(192,132,252,0.15);color:var(--neutral-color);border:1px solid var(--neutral-color);border-radius:4px;font-size:9px;padding:1px 5px;margin-left:6px;font-family:'JetBrains Mono',monospace;vertical-align:middle}
-
   @media(max-width:1024px){.scores-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:768px){header{padding:10px 14px}main{padding:10px 14px}.tabs{padding:0 14px;overflow-x:auto;white-space:nowrap}.tab{padding:9px 14px}.tab-toolbar{padding:8px 14px}.scores-grid{grid-template-columns:1fr 1fr}.record-pair-cell{grid-template-columns:1fr}}
+  @media(max-width:480px){.streak-row.cols-3{grid-template-columns:1fr 1fr}.chart-wrap{height:220px!important}.scores-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo-badge">⚽</div>
   <div><h1>FantAccitua</h1><p>Dashboard B · Stagionale</p></div>
-  <div class="header-right"><span>34 giornate</span><span class="badge-live">LIVE</span></div>
+  <div class="header-right"><span>35 giornate</span><span class="badge-live">LIVE</span></div>
 </header>
-
 <div class="tabs">
   <div class="tab active" onclick="switchTab('classifica',event)">🏆 Classifica</div>
   <div class="tab" onclick="switchTab('andamento',event)">📈 Andamento</div>
   <div class="tab" onclick="switchTab('performance',event)">🔥 Performance</div>
   <div class="tab" onclick="switchTab('topflop',event)">🎖️ Top & Flop</div>
 </div>
-
 <div class="tab-toolbar" id="toolbar-classifica">
-  <p class="section-title">Classifica · Giornata 34</p>
+  <p class="section-title">Classifica · Giornata 35</p>
   <div class="toggle-bar">
     <button class="toggle-btn active" onclick="setView('total',this)">Totale</button>
     <button class="toggle-btn" onclick="setView('home',this)">🏠 Casa</button>
@@ -174,16 +161,15 @@
     <button class="toggle-btn" onclick="setTopFlopView('neutral',this)">⚽ Neutro</button>
   </div>
 </div>
-
 <main>
-
 <!-- CLASSIFICA -->
 <div id="panel-classifica" class="panel active">
-  <p id="view-label" class="context-label">Tutte le partite · 34 giornate</p>
+  <p id="view-label" class="context-label">Tutte le partite · 35 giornate</p>
   <p class="table-note">PF/PS = Punteggio fantacalcio proprio/avversario &nbsp;·&nbsp; ∅PF/∅PS = media per partita &nbsp;·&nbsp; Forma = ultimi 5 con medie PF/PS</p>
+  <div class="standings-wrap">
   <table class="standings-table">
     <thead><tr>
-      <th style="width:32px">#</th><th>Squadra</th>
+      <th class="pos-col" style="width:32px">#</th><th class="team-col">Squadra</th>
       <th class="center">Pts</th><th class="center">G</th><th class="center">V</th><th class="center">P</th><th class="center">S</th>
       <th class="center">GF</th><th class="center">GS</th><th class="center">DR</th>
       <th class="center">PF</th><th class="center">PS</th><th class="center">∅PF</th><th class="center">∅PS</th>
@@ -191,8 +177,8 @@
     </tr></thead>
     <tbody id="standings-body"></tbody>
   </table>
+  </div>
 </div>
-
 <!-- ANDAMENTO -->
 <div id="panel-andamento" class="panel">
   <div class="team-filter" id="andamento-filter"></div>
@@ -201,7 +187,7 @@
     <div class="chart-wrap" style="height:420px"><canvas id="progressChart"></canvas></div>
   </div>
   <div class="heatmap-wrap">
-    <h3>🗓 Mappa Risultati — Tutte le Giornate <span class="neutral-badge">G29+ campo neutro</span></h3>
+    <h3>🗓 Mappa Risultati — Tutte le Giornate</h3>
     <table class="heatmap-table" id="heatmap-table"></table>
     <div class="legend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--win)"></div> Vittoria</div>
@@ -214,8 +200,11 @@
     <h3>📊 Distribuzione V/P/S per Squadra</h3>
     <div class="chart-wrap" style="height:280px"><canvas id="wdlChart"></canvas></div>
   </div>
+  <div class="chart-card" style="display:none">
+    <h3>🔢 Punteggio Fantacalcio Cumulativo per Giornata</h3>
+    <div class="chart-wrap" style="height:400px"><canvas id="pfChart"></canvas></div>
+  </div>
 </div>
-
 <!-- PERFORMANCE -->
 <div id="panel-performance" class="panel">
   <p class="sub-title">Serie in corso e top stagionali</p>
@@ -231,7 +220,6 @@
     <div class="chart-wrap"><canvas id="streakChart"></canvas></div>
   </div>
 </div>
-
 <!-- TOP & FLOP -->
 <div id="panel-topflop" class="panel">
   <p class="sub-title">Punteggi</p>
@@ -239,130 +227,88 @@
   <p class="sub-title">Record Stagionali</p>
   <div class="records-section" id="records-section"></div>
 </div>
-
 </main>
-
 <script>
 const DATA={
   "AS Top Gun":{
-    total:{w:11,d:4,l:19,gf:42,ga:53,score_for:2380.5,score_ag:2451.0,pts:37,avg_pf:70.0,avg_ps:72.1,top_pf:84.5,flop_pf:62.0},
+    total:{w:11,d:4,l:20,gf:42,ga:55,score_for:2443.0,score_ag:2528.5,pts:37,avg_pf:69.8,avg_ps:72.2,top_pf:84.5,flop_pf:62.0},
     home:{w:6,d:2,l:6,gf:19,ga:21,score_for:988.5,score_ag:998.5,pts:20,avg_pf:70.6,avg_ps:71.3,top_pf:84.5,flop_pf:63.0},
     away:{w:2,d:2,l:10,gf:16,ga:26,score_for:973.5,score_ag:1038.5,pts:8,avg_pf:69.5,avg_ps:74.2,top_pf:74.5,flop_pf:62.0},
-    neutral:{w:3,d:0,l:3,gf:7,ga:6,score_for:418.5,score_ag:414.0,pts:9,avg_pf:69.8,avg_ps:69.0,top_pf:80.0,flop_pf:62.5},
-    last5:{total:{results:["L","W","L","W","L"],avg_pf:69.6,avg_ps:69.3},home:{results:["D","W","L","L","L"],avg_pf:69.3,avg_ps:73.0},away:{results:["W","L","L","L","D"],avg_pf:67.1,avg_ps:73.9},neutral:{results:["L","W","L","W","L"],avg_pf:69.6,avg_ps:69.3}},
-    results:{total:["L","W","L","L","L","L","L","W","W","W","L","L","W","L","L","D","D","W","D","W","W","L","L","L","L","L","L","D","W","L","W","L","W","L"],home:["W","L","L","L","W","W","W","D","W","D","W","L","L","L"],away:["L","L","L","W","L","L","L","L","D","W","L","L","L","D"],neutral:["W","L","W","L","W","L"]},
+    neutral:{w:3,d:0,l:4,gf:7,ga:8,score_for:481.0,score_ag:491.5,pts:9,avg_pf:68.7,avg_ps:70.2,top_pf:80.0,flop_pf:62.5},
+    last5:{total:{results:["W","L","W","L","L"],avg_pf:69.0,avg_ps:70.8},home:{results:["D","W","L","L","L"],avg_pf:69.3,avg_ps:73.0},away:{results:["W","L","L","L","D"],avg_pf:67.1,avg_ps:73.9},neutral:{results:["W","L","W","L","L"],avg_pf:69.0,avg_ps:70.8}},
+    results:{total:["L","W","L","L","L","L","L","W","W","W","L","L","W","L","L","D","D","W","D","W","W","L","L","L","L","L","L","D","W","L","W","L","W","L","L"],home:["W","L","L","L","W","W","W","D","W","D","W","L","L","L"],away:["L","L","L","W","L","L","L","L","D","W","L","L","L","D"],neutral:["W","L","W","L","W","L","L"]},
     clean_sheets:{total:7,home:3,away:2,neutral:2},
-    streaks:{
-      total:{win:{best:3,current:0},draw:{best:2,current:0},loss:{best:6,current:1},unbeaten:{best:6,current:0},winless:{best:7,current:1},pos_neg:{current:-1,best_pos:6,best_neg:7},scored:{best:17,current:0},no_goal:{best:3,current:1},cs:{best:2,current:0},conceded:{best:9,current:1}},
-      home:{win:{best:3,current:0},draw:{best:1,current:0},loss:{best:3,current:3},unbeaten:{best:7,current:0},winless:{best:3,current:3},pos_neg:{current:-3,best_pos:7,best_neg:3},scored:{best:9,current:1},no_goal:{best:1,current:0},cs:{best:1,current:0},conceded:{best:4,current:3}},
-      away:{win:{best:1,current:0},draw:{best:1,current:1},loss:{best:4,current:0},unbeaten:{best:2,current:0},winless:{best:5,current:4},pos_neg:{current:-4,best_pos:2,best_neg:5},scored:{best:10,current:2},no_goal:{best:2,current:0},cs:{best:1,current:0},conceded:{best:5,current:4}},
-      neutral:{win:{best:1,current:0},draw:{best:0,current:0},loss:{best:1,current:1},unbeaten:{best:1,current:0},winless:{best:1,current:1},pos_neg:{current:-1,best_pos:1,best_neg:1},scored:{best:1,current:0},no_goal:{best:1,current:1},cs:{best:1,current:0},conceded:{best:2,current:1}}
-    }
+    streaks:{total:{win:{best:3,current:0},draw:{best:2,current:0},loss:{best:6,current:2},unbeaten:{best:6,current:0},winless:{best:7,current:2},pos_neg:{current:-2,best_pos:6,best_neg:7},scored:{best:17,current:0},no_goal:{best:3,current:2},cs:{best:2,current:0},conceded:{best:9,current:2}},home:{win:{best:3,current:0},draw:{best:1,current:0},loss:{best:3,current:3},unbeaten:{best:7,current:0},winless:{best:3,current:3},pos_neg:{current:-3,best_pos:7,best_neg:3},scored:{best:9,current:1},no_goal:{best:1,current:0},cs:{best:1,current:0},conceded:{best:4,current:3}},away:{win:{best:1,current:0},draw:{best:1,current:1},loss:{best:4,current:0},unbeaten:{best:2,current:0},winless:{best:5,current:4},pos_neg:{current:-4,best_pos:2,best_neg:5},scored:{best:10,current:2},no_goal:{best:2,current:0},cs:{best:1,current:0},conceded:{best:5,current:4}},neutral:{win:{best:1,current:0},draw:{best:0,current:0},loss:{best:2,current:2},unbeaten:{best:1,current:0},winless:{best:2,current:2},pos_neg:{current:-2,best_pos:1,best_neg:2},scored:{best:1,current:0},no_goal:{best:2,current:2},cs:{best:1,current:0},conceded:{best:2,current:2}}}
   },
   "Atletico Pajata":{
-    total:{w:10,d:6,l:18,gf:51,ga:60,score_for:2420.5,score_ag:2483.0,pts:36,avg_pf:71.2,avg_ps:73.0,top_pf:99.0,flop_pf:60.5},
+    total:{w:10,d:6,l:19,gf:52,ga:62,score_for:2488.0,score_ag:2554.5,pts:36,avg_pf:71.1,avg_ps:73.0,top_pf:99.0,flop_pf:60.5},
     home:{w:3,d:2,l:9,gf:19,ga:29,score_for:988.5,score_ag:1042.5,pts:11,avg_pf:70.6,avg_ps:74.5,top_pf:87.5,flop_pf:60.5},
     away:{w:4,d:3,l:7,gf:18,ga:24,score_for:971.0,score_ag:1022.0,pts:15,avg_pf:69.4,avg_ps:73.0,top_pf:76.0,flop_pf:60.5},
-    neutral:{w:3,d:1,l:2,gf:14,ga:7,score_for:461.0,score_ag:418.5,pts:10,avg_pf:76.8,avg_ps:69.8,top_pf:99.0,flop_pf:62.0},
-    last5:{total:{results:["W","L","W","D","W"],avg_pf:79.8,avg_ps:68.1},home:{results:["L","W","L","L","L"],avg_pf:71.2,avg_ps:73.9},away:{results:["L","L","W","L","W"],avg_pf:68.9,avg_ps:72.4},neutral:{results:["W","L","W","D","W"],avg_pf:79.8,avg_ps:68.1}},
-    results:{total:["D","L","L","L","W","W","L","W","W","L","D","D","L","L","L","D","D","L","L","L","L","W","W","L","L","L","W","L","L","W","L","W","D","W"],home:["L","L","W","W","L","D","L","D","L","L","W","L","L","L"],away:["D","L","W","L","W","D","L","L","D","L","L","W","L","W"],neutral:["L","W","L","W","D","W"]},
+    neutral:{w:3,d:1,l:3,gf:15,ga:9,score_for:528.5,score_ag:490.0,pts:10,avg_pf:75.5,avg_ps:70.0,top_pf:99.0,flop_pf:62.0},
+    last5:{total:{results:["L","W","D","W","L"],avg_pf:73.5,avg_ps:69.7},home:{results:["L","W","L","L","L"],avg_pf:71.2,avg_ps:73.9},away:{results:["L","L","W","L","W"],avg_pf:68.9,avg_ps:72.4},neutral:{results:["L","W","D","W","L"],avg_pf:73.5,avg_ps:69.7}},
+    results:{total:["D","L","L","L","W","W","L","W","W","L","D","D","L","L","L","D","D","L","L","L","L","W","W","L","L","L","W","L","L","W","L","W","D","W","L"],home:["L","L","W","W","L","D","L","D","L","L","W","L","L","L"],away:["D","L","W","L","W","D","L","L","D","L","L","W","L","W"],neutral:["L","W","L","W","D","W","L"]},
     clean_sheets:{total:4,home:0,away:2,neutral:2},
-    streaks:{
-      total:{win:{best:2,current:1},draw:{best:2,current:0},loss:{best:4,current:0},unbeaten:{best:3,current:3},winless:{best:12,current:0},pos_neg:{current:3,best_pos:3,best_neg:12},scored:{best:12,current:5},no_goal:{best:3,current:0},cs:{best:1,current:1},conceded:{best:13,current:0}},
-      home:{win:{best:2,current:0},draw:{best:1,current:0},loss:{best:3,current:3},unbeaten:{best:2,current:0},winless:{best:6,current:3},pos_neg:{current:-3,best_pos:2,best_neg:6},scored:{best:6,current:1},no_goal:{best:1,current:0},cs:{best:0,current:0},conceded:{best:14,current:14}},
-      away:{win:{best:1,current:1},draw:{best:1,current:0},loss:{best:2,current:0},unbeaten:{best:2,current:1},winless:{best:6,current:0},pos_neg:{current:1,best_pos:2,best_neg:6},scored:{best:6,current:4},no_goal:{best:2,current:0},cs:{best:1,current:0},conceded:{best:6,current:2}},
-      neutral:{win:{best:1,current:1},draw:{best:1,current:0},loss:{best:1,current:0},unbeaten:{best:3,current:3},winless:{best:1,current:0},pos_neg:{current:3,best_pos:3,best_neg:1},scored:{best:5,current:5},no_goal:{best:1,current:0},cs:{best:1,current:1},conceded:{best:3,current:0}}
-    }
+    streaks:{total:{win:{best:2,current:0},draw:{best:2,current:0},loss:{best:4,current:1},unbeaten:{best:3,current:0},winless:{best:12,current:1},pos_neg:{current:-1,best_pos:3,best_neg:12},scored:{best:12,current:6},no_goal:{best:3,current:0},cs:{best:1,current:0},conceded:{best:13,current:1}},home:{win:{best:2,current:0},draw:{best:1,current:0},loss:{best:3,current:3},unbeaten:{best:2,current:0},winless:{best:6,current:3},pos_neg:{current:-3,best_pos:2,best_neg:6},scored:{best:6,current:1},no_goal:{best:1,current:0},cs:{best:0,current:0},conceded:{best:14,current:14}},away:{win:{best:1,current:1},draw:{best:1,current:0},loss:{best:2,current:0},unbeaten:{best:2,current:1},winless:{best:6,current:0},pos_neg:{current:1,best_pos:2,best_neg:6},scored:{best:6,current:4},no_goal:{best:2,current:0},cs:{best:1,current:0},conceded:{best:6,current:2}},neutral:{win:{best:1,current:0},draw:{best:1,current:0},loss:{best:1,current:1},unbeaten:{best:3,current:0},winless:{best:1,current:1},pos_neg:{current:-1,best_pos:3,best_neg:1},scored:{best:6,current:6},no_goal:{best:1,current:0},cs:{best:1,current:0},conceded:{best:3,current:1}}}
   },
   "F. C. Turris":{
-    total:{w:15,d:7,l:12,gf:52,ga:48,score_for:2441.5,score_ag:2417.5,pts:52,avg_pf:71.8,avg_ps:71.1,top_pf:87.5,flop_pf:63.5},
+    total:{w:16,d:7,l:12,gf:54,ga:48,score_for:2519.0,score_ag:2480.0,pts:55,avg_pf:72.0,avg_ps:70.9,top_pf:87.5,flop_pf:63.5},
     home:{w:8,d:4,l:2,gf:22,ga:12,score_for:1015.0,score_ag:954.0,pts:28,avg_pf:72.5,avg_ps:68.1,top_pf:78.5,flop_pf:64.5},
     away:{w:2,d:3,l:9,gf:17,ga:30,score_for:979.5,score_ag:1053.0,pts:9,avg_pf:70.0,avg_ps:75.2,top_pf:87.5,flop_pf:63.5},
-    neutral:{w:5,d:0,l:1,gf:13,ga:6,score_for:447.0,score_ag:410.5,pts:15,avg_pf:74.5,avg_ps:68.4,top_pf:81.0,flop_pf:67.0},
-    last5:{total:{results:["W","W","L","W","W"],avg_pf:73.8,avg_ps:69.7},home:{results:["W","D","W","W","D"],avg_pf:73.1,avg_ps:66.8},away:{results:["D","L","L","L","W"],avg_pf:70.0,avg_ps:74.1},neutral:{results:["W","W","L","W","W"],avg_pf:73.8,avg_ps:69.7}},
-    results:{total:["D","L","L","L","L","W","W","L","W","L","L","W","L","W","W","D","D","D","D","W","L","L","D","W","L","W","W","D","W","W","W","L","W","W"],home:["D","L","W","W","L","W","W","W","D","W","D","W","W","D"],away:["L","L","L","W","L","L","L","D","D","D","L","L","L","W"],neutral:["W","W","W","L","W","W"]},
-    clean_sheets:{total:8,home:6,away:0,neutral:2},
-    streaks:{
-      total:{win:{best:3,current:2},draw:{best:4,current:0},loss:{best:4,current:0},unbeaten:{best:7,current:2},winless:{best:5,current:0},pos_neg:{current:2,best_pos:7,best_neg:5},scored:{best:15,current:9},no_goal:{best:3,current:0},cs:{best:2,current:0},conceded:{best:8,current:3}},
-      home:{win:{best:3,current:0},draw:{best:1,current:1},loss:{best:1,current:0},unbeaten:{best:9,current:9},winless:{best:2,current:0},pos_neg:{current:9,best_pos:9,best_neg:2},scored:{best:8,current:3},no_goal:{best:1,current:0},cs:{best:3,current:0},conceded:{best:3,current:1}},
-      away:{win:{best:1,current:1},draw:{best:3,current:0},loss:{best:3,current:0},unbeaten:{best:1,current:1},winless:{best:9,current:0},pos_neg:{current:1,best_pos:1,best_neg:9},scored:{best:7,current:1},no_goal:{best:2,current:0},cs:{best:0,current:0},conceded:{best:14,current:14}},
-      neutral:{win:{best:3,current:2},draw:{best:0,current:0},loss:{best:1,current:0},unbeaten:{best:3,current:2},winless:{best:1,current:0},pos_neg:{current:2,best_pos:3,best_neg:1},scored:{best:6,current:6},no_goal:{best:0,current:0},cs:{best:1,current:0},conceded:{best:3,current:3}}
-    }
+    neutral:{w:6,d:0,l:1,gf:15,ga:6,score_for:524.5,score_ag:473.0,pts:18,avg_pf:74.9,avg_ps:67.6,top_pf:81.0,flop_pf:67.0},
+    last5:{total:{results:["W","L","W","W","W"],avg_pf:74.5,avg_ps:68.3},home:{results:["W","D","W","W","D"],avg_pf:73.1,avg_ps:66.8},away:{results:["D","L","L","L","W"],avg_pf:70.0,avg_ps:74.1},neutral:{results:["W","L","W","W","W"],avg_pf:74.5,avg_ps:68.3}},
+    results:{total:["D","L","L","L","L","W","W","L","W","L","L","W","L","W","W","D","D","D","D","W","L","L","D","W","L","W","W","D","W","W","W","L","W","W","W"],home:["D","L","W","W","L","W","W","W","D","W","D","W","W","D"],away:["L","L","L","W","L","L","L","D","D","D","L","L","L","W"],neutral:["W","W","W","L","W","W","W"]},
+    clean_sheets:{total:9,home:6,away:0,neutral:3},
+    streaks:{total:{win:{best:3,current:3},draw:{best:4,current:0},loss:{best:4,current:0},unbeaten:{best:7,current:3},winless:{best:5,current:0},pos_neg:{current:3,best_pos:7,best_neg:5},scored:{best:15,current:10},no_goal:{best:3,current:0},cs:{best:2,current:1},conceded:{best:8,current:0}},home:{win:{best:3,current:0},draw:{best:1,current:1},loss:{best:1,current:0},unbeaten:{best:9,current:9},winless:{best:2,current:0},pos_neg:{current:9,best_pos:9,best_neg:2},scored:{best:8,current:3},no_goal:{best:1,current:0},cs:{best:3,current:0},conceded:{best:3,current:1}},away:{win:{best:1,current:1},draw:{best:3,current:0},loss:{best:3,current:0},unbeaten:{best:1,current:1},winless:{best:9,current:0},pos_neg:{current:1,best_pos:1,best_neg:9},scored:{best:7,current:1},no_goal:{best:2,current:0},cs:{best:0,current:0},conceded:{best:14,current:14}},neutral:{win:{best:3,current:3},draw:{best:0,current:0},loss:{best:1,current:0},unbeaten:{best:3,current:3},winless:{best:1,current:0},pos_neg:{current:3,best_pos:3,best_neg:1},scored:{best:7,current:7},no_goal:{best:0,current:0},cs:{best:1,current:1},conceded:{best:3,current:0}}}
   },
   "FC Zoolander":{
-    total:{w:20,d:6,l:8,gf:55,ga:45,score_for:2463.0,score_ag:2373.0,pts:66,avg_pf:72.4,avg_ps:69.8,top_pf:86.0,flop_pf:60.5},
+    total:{w:20,d:6,l:9,gf:56,ga:48,score_for:2530.5,score_ag:2452.5,pts:66,avg_pf:72.3,avg_ps:70.1,top_pf:86.0,flop_pf:60.5},
     home:{w:11,d:1,l:2,gf:29,ga:16,score_for:1063.5,score_ag:960.0,pts:34,avg_pf:76.0,avg_ps:68.6,top_pf:86.0,flop_pf:65.5},
     away:{w:5,d:4,l:5,gf:19,ga:25,score_for:983.5,score_ag:1019.5,pts:19,avg_pf:70.2,avg_ps:72.8,top_pf:83.0,flop_pf:60.5},
-    neutral:{w:4,d:1,l:1,gf:7,ga:4,score_for:416.0,score_ag:393.5,pts:13,avg_pf:69.3,avg_ps:65.6,top_pf:75.0,flop_pf:62.5},
-    last5:{total:{results:["W","W","W","L","W"],avg_pf:70.3,avg_ps:66.7},home:{results:["L","W","W","W","W"],avg_pf:76.9,avg_ps:68.7},away:{results:["L","L","W","D","W"],avg_pf:69.7,avg_ps:72.8},neutral:{results:["W","W","W","L","W"],avg_pf:70.3,avg_ps:66.7}},
-    results:{total:["W","L","W","W","W","W","D","W","L","W","W","L","L","W","W","D","D","D","L","W","L","L","W","W","W","D","W","W","D","W","W","W","L","W"],home:["W","W","W","W","L","W","W","W","D","L","W","W","W","W"],away:["L","W","D","W","W","L","L","D","D","L","L","W","D","W"],neutral:["D","W","W","W","L","W"]},
+    neutral:{w:4,d:1,l:2,gf:8,ga:7,score_for:483.5,score_ag:473.0,pts:13,avg_pf:69.1,avg_ps:67.6,top_pf:75.0,flop_pf:62.5},
+    last5:{total:{results:["W","W","L","W","L"],avg_pf:69.8,avg_ps:69.5},home:{results:["L","W","W","W","W"],avg_pf:76.9,avg_ps:68.7},away:{results:["L","L","W","D","W"],avg_pf:69.7,avg_ps:72.8},neutral:{results:["W","W","L","W","L"],avg_pf:69.8,avg_ps:69.5}},
+    results:{total:["W","L","W","W","W","W","D","W","L","W","W","L","L","W","W","D","D","D","L","W","L","L","W","W","W","D","W","W","D","W","W","W","L","W","L"],home:["W","W","W","W","L","W","W","W","D","L","W","W","W","W"],away:["L","W","D","W","W","L","L","D","D","L","L","W","D","W"],neutral:["D","W","W","W","L","W","L"]},
     clean_sheets:{total:7,home:3,away:2,neutral:2},
-    streaks:{
-      total:{win:{best:4,current:1},draw:{best:3,current:0},loss:{best:2,current:0},unbeaten:{best:10,current:1},winless:{best:4,current:0},pos_neg:{current:1,best_pos:10,best_neg:4},scored:{best:8,current:1},no_goal:{best:2,current:0},cs:{best:2,current:0},conceded:{best:14,current:4}},
-      home:{win:{best:4,current:4},draw:{best:1,current:0},loss:{best:1,current:0},unbeaten:{best:4,current:4},winless:{best:2,current:0},pos_neg:{current:4,best_pos:4,best_neg:2},scored:{best:9,current:9},no_goal:{best:1,current:0},cs:{best:2,current:0},conceded:{best:7,current:1}},
-      away:{win:{best:2,current:1},draw:{best:2,current:0},loss:{best:2,current:0},unbeaten:{best:4,current:3},winless:{best:6,current:0},pos_neg:{current:3,best_pos:4,best_neg:6},scored:{best:5,current:4},no_goal:{best:2,current:0},cs:{best:1,current:0},conceded:{best:10,current:10}},
-      neutral:{win:{best:3,current:1},draw:{best:1,current:0},loss:{best:1,current:0},unbeaten:{best:4,current:1},winless:{best:1,current:0},pos_neg:{current:1,best_pos:4,best_neg:1},scored:{best:3,current:1},no_goal:{best:1,current:0},cs:{best:2,current:0},conceded:{best:4,current:4}}
-    }
+    streaks:{total:{win:{best:4,current:0},draw:{best:3,current:0},loss:{best:2,current:1},unbeaten:{best:10,current:0},winless:{best:4,current:1},pos_neg:{current:-1,best_pos:10,best_neg:4},scored:{best:8,current:2},no_goal:{best:2,current:0},cs:{best:2,current:0},conceded:{best:14,current:5}},home:{win:{best:4,current:4},draw:{best:1,current:0},loss:{best:1,current:0},unbeaten:{best:4,current:4},winless:{best:2,current:0},pos_neg:{current:4,best_pos:4,best_neg:2},scored:{best:9,current:9},no_goal:{best:1,current:0},cs:{best:2,current:0},conceded:{best:7,current:1}},away:{win:{best:2,current:1},draw:{best:2,current:0},loss:{best:2,current:0},unbeaten:{best:4,current:3},winless:{best:6,current:0},pos_neg:{current:3,best_pos:4,best_neg:6},scored:{best:5,current:4},no_goal:{best:2,current:0},cs:{best:1,current:0},conceded:{best:10,current:10}},neutral:{win:{best:3,current:0},draw:{best:1,current:0},loss:{best:1,current:1},unbeaten:{best:4,current:0},winless:{best:1,current:1},pos_neg:{current:-1,best_pos:4,best_neg:1},scored:{best:3,current:2},no_goal:{best:1,current:0},cs:{best:2,current:0},conceded:{best:5,current:5}}}
   },
   "FCC Padulo":{
-    total:{w:18,d:7,l:9,gf:59,ga:41,score_for:2466.5,score_ag:2381.5,pts:61,avg_pf:72.5,avg_ps:70.0,top_pf:90.0,flop_pf:56.5},
+    total:{w:19,d:7,l:9,gf:60,ga:41,score_for:2537.0,score_ag:2447.0,pts:64,avg_pf:72.5,avg_ps:69.9,top_pf:90.0,flop_pf:56.5},
     home:{w:8,d:3,l:3,gf:28,ga:13,score_for:1046.5,score_ag:961.0,pts:27,avg_pf:74.8,avg_ps:68.6,top_pf:90.0,flop_pf:59.5},
     away:{w:7,d:4,l:3,gf:25,ga:18,score_for:1012.5,score_ag:983.0,pts:25,avg_pf:72.3,avg_ps:70.2,top_pf:89.0,flop_pf:56.5},
-    neutral:{w:3,d:0,l:3,gf:6,ga:10,score_for:407.5,score_ag:437.5,pts:9,avg_pf:67.9,avg_ps:72.9,top_pf:79.0,flop_pf:62.5},
-    last5:{total:{results:["L","L","W","W","W"],avg_pf:68.0,avg_ps:73.4},home:{results:["W","L","W","D","W"],avg_pf:77.3,avg_ps:67.8},away:{results:["W","W","W","L","D"],avg_pf:75.0,avg_ps:69.7},neutral:{results:["L","L","W","W","W"],avg_pf:68.0,avg_ps:73.4}},
-    results:{total:["W","W","W","W","L","W","D","L","L","W","L","W","D","D","W","D","D","W","W","W","W","W","L","L","W","D","D","W","L","L","L","W","W","W"],home:["W","W","W","L","L","W","D","W","D","W","L","W","D","W"],away:["W","W","L","D","L","W","D","D","W","W","W","W","L","D"],neutral:["L","L","L","W","W","W"]},
-    clean_sheets:{total:8,home:6,away:0,neutral:2},
-    streaks:{
-      total:{win:{best:5,current:3},draw:{best:2,current:0},loss:{best:3,current:0},unbeaten:{best:11,current:3},winless:{best:3,current:0},pos_neg:{current:3,best_pos:11,best_neg:3},scored:{best:8,current:3},no_goal:{best:2,current:0},cs:{best:2,current:2},conceded:{best:7,current:0}},
-      home:{win:{best:3,current:1},draw:{best:1,current:0},loss:{best:2,current:0},unbeaten:{best:5,current:3},winless:{best:2,current:0},pos_neg:{current:3,best_pos:5,best_neg:2},scored:{best:3,current:3},no_goal:{best:1,current:0},cs:{best:2,current:0},conceded:{best:2,current:2}},
-      away:{win:{best:4,current:0},draw:{best:2,current:1},loss:{best:1,current:0},unbeaten:{best:7,current:0},winless:{best:3,current:2},pos_neg:{current:-2,best_pos:7,best_neg:3},scored:{best:7,current:1},no_goal:{best:1,current:0},cs:{best:0,current:0},conceded:{best:14,current:14}},
-      neutral:{win:{best:3,current:3},draw:{best:0,current:0},loss:{best:3,current:0},unbeaten:{best:3,current:3},winless:{best:3,current:0},pos_neg:{current:3,best_pos:3,best_neg:3},scored:{best:3,current:3},no_goal:{best:2,current:0},cs:{best:2,current:2},conceded:{best:4,current:0}}
-    }
+    neutral:{w:4,d:0,l:3,gf:7,ga:10,score_for:478.0,score_ag:503.0,pts:12,avg_pf:68.3,avg_ps:71.9,top_pf:79.0,flop_pf:62.5},
+    last5:{total:{results:["L","W","W","W","W"],avg_pf:69.4,avg_ps:66.7},home:{results:["W","L","W","D","W"],avg_pf:77.3,avg_ps:67.8},away:{results:["W","W","W","L","D"],avg_pf:75.0,avg_ps:69.7},neutral:{results:["L","W","W","W","W"],avg_pf:69.4,avg_ps:66.7}},
+    results:{total:["W","W","W","W","L","W","D","L","L","W","L","W","D","D","W","D","D","W","W","W","W","W","L","L","W","D","D","W","L","L","L","W","W","W","W"],home:["W","W","W","L","L","W","D","W","D","W","L","W","D","W"],away:["W","W","L","D","L","W","D","D","W","W","W","W","L","D"],neutral:["L","L","L","W","W","W","W"]},
+    clean_sheets:{total:9,home:6,away:0,neutral:3},
+    streaks:{total:{win:{best:5,current:4},draw:{best:2,current:0},loss:{best:3,current:0},unbeaten:{best:11,current:4},winless:{best:3,current:0},pos_neg:{current:4,best_pos:11,best_neg:3},scored:{best:8,current:4},no_goal:{best:2,current:0},cs:{best:3,current:3},conceded:{best:7,current:0}},home:{win:{best:3,current:1},draw:{best:1,current:0},loss:{best:2,current:0},unbeaten:{best:5,current:3},winless:{best:2,current:0},pos_neg:{current:3,best_pos:5,best_neg:2},scored:{best:3,current:3},no_goal:{best:1,current:0},cs:{best:2,current:0},conceded:{best:2,current:2}},away:{win:{best:4,current:0},draw:{best:2,current:1},loss:{best:1,current:0},unbeaten:{best:7,current:0},winless:{best:3,current:2},pos_neg:{current:-2,best_pos:7,best_neg:3},scored:{best:7,current:1},no_goal:{best:1,current:0},cs:{best:0,current:0},conceded:{best:14,current:14}},neutral:{win:{best:4,current:4},draw:{best:0,current:0},loss:{best:3,current:0},unbeaten:{best:4,current:4},winless:{best:3,current:0},pos_neg:{current:4,best_pos:4,best_neg:3},scored:{best:4,current:4},no_goal:{best:2,current:0},cs:{best:3,current:3},conceded:{best:4,current:0}}}
   },
   "Magico Pomi":{
-    total:{w:14,d:7,l:13,gf:50,ga:49,score_for:2418.0,score_ag:2410.5,pts:49,avg_pf:71.1,avg_ps:70.9,top_pf:82.0,flop_pf:60.0},
+    total:{w:15,d:7,l:13,gf:52,ga:50,score_for:2489.5,score_ag:2478.0,pts:52,avg_pf:71.1,avg_ps:70.8,top_pf:82.0,flop_pf:60.0},
     home:{w:7,d:4,l:3,gf:26,ga:20,score_for:1033.0,score_ag:989.5,pts:25,avg_pf:73.8,avg_ps:70.7,top_pf:78.5,flop_pf:67.0},
     away:{w:5,d:3,l:6,gf:17,ga:18,score_for:965.5,score_ag:986.5,pts:18,avg_pf:69.0,avg_ps:70.5,top_pf:82.0,flop_pf:60.0},
-    neutral:{w:2,d:0,l:4,gf:7,ga:11,score_for:419.5,score_ag:434.5,pts:6,avg_pf:69.9,avg_ps:72.4,top_pf:75.0,flop_pf:64.5},
-    last5:{total:{results:["L","W","L","L","L"],avg_pf:68.9,avg_ps:73.7},home:{results:["W","W","D","W","L"],avg_pf:73.5,avg_ps:71.2},away:{results:["D","L","D","L","W"],avg_pf:69.3,avg_ps:72.5},neutral:{results:["L","W","L","L","L"],avg_pf:68.9,avg_ps:73.7}},
-    results:{total:["W","W","D","L","W","L","W","D","L","D","W","W","W","W","L","D","L","L","D","L","W","W","D","D","L","W","L","W","W","L","W","L","L","L"],home:["W","L","W","D","D","W","W","D","L","W","W","D","W","L"],away:["W","D","W","L","L","W","W","L","L","D","L","D","L","W"],neutral:["W","L","W","L","L","L"]},
+    neutral:{w:3,d:0,l:4,gf:9,ga:12,score_for:491.0,score_ag:502.0,pts:9,avg_pf:70.1,avg_ps:71.7,top_pf:75.0,flop_pf:64.5},
+    last5:{total:{results:["W","L","L","L","W"],avg_pf:69.3,avg_ps:72.4},home:{results:["W","W","D","W","L"],avg_pf:73.5,avg_ps:71.2},away:{results:["D","L","D","L","W"],avg_pf:69.3,avg_ps:72.5},neutral:{results:["W","L","L","L","W"],avg_pf:69.3,avg_ps:72.4}},
+    results:{total:["W","W","D","L","W","L","W","D","L","D","W","W","W","W","L","D","L","L","D","L","W","W","D","D","L","W","L","W","W","L","W","L","L","L","W"],home:["W","L","W","D","D","W","W","D","L","W","W","D","W","L"],away:["W","D","W","L","L","W","W","L","L","D","L","D","L","W"],neutral:["W","L","W","L","L","L","W"]},
     clean_sheets:{total:4,home:1,away:3,neutral:0},
-    streaks:{
-      total:{win:{best:4,current:0},draw:{best:2,current:0},loss:{best:3,current:3},unbeaten:{best:5,current:0},winless:{best:6,current:3},pos_neg:{current:-3,best_pos:5,best_neg:6},scored:{best:7,current:1},no_goal:{best:1,current:0},cs:{best:2,current:0},conceded:{best:11,current:11}},
-      home:{win:{best:2,current:0},draw:{best:2,current:0},loss:{best:1,current:1},unbeaten:{best:6,current:0},winless:{best:2,current:1},pos_neg:{current:-1,best_pos:6,best_neg:2},scored:{best:14,current:14},no_goal:{best:0,current:0},cs:{best:1,current:0},conceded:{best:7,current:7}},
-      away:{win:{best:2,current:1},draw:{best:1,current:0},loss:{best:2,current:0},unbeaten:{best:3,current:1},winless:{best:6,current:0},pos_neg:{current:1,best_pos:3,best_neg:6},scored:{best:3,current:1},no_goal:{best:2,current:0},cs:{best:1,current:0},conceded:{best:4,current:2}},
-      neutral:{win:{best:1,current:0},draw:{best:0,current:0},loss:{best:3,current:3},unbeaten:{best:1,current:0},winless:{best:3,current:3},pos_neg:{current:-3,best_pos:1,best_neg:3},scored:{best:4,current:1},no_goal:{best:1,current:0},cs:{best:0,current:0},conceded:{best:6,current:6}}
-    }
+    streaks:{total:{win:{best:4,current:1},draw:{best:2,current:0},loss:{best:3,current:0},unbeaten:{best:5,current:1},winless:{best:6,current:0},pos_neg:{current:1,best_pos:5,best_neg:6},scored:{best:7,current:2},no_goal:{best:1,current:0},cs:{best:2,current:0},conceded:{best:12,current:12}},home:{win:{best:2,current:0},draw:{best:2,current:0},loss:{best:1,current:1},unbeaten:{best:6,current:0},winless:{best:2,current:1},pos_neg:{current:-1,best_pos:6,best_neg:2},scored:{best:14,current:14},no_goal:{best:0,current:0},cs:{best:1,current:0},conceded:{best:7,current:7}},away:{win:{best:2,current:1},draw:{best:1,current:0},loss:{best:2,current:0},unbeaten:{best:3,current:1},winless:{best:6,current:0},pos_neg:{current:1,best_pos:3,best_neg:6},scored:{best:3,current:1},no_goal:{best:2,current:0},cs:{best:1,current:0},conceded:{best:4,current:2}},neutral:{win:{best:1,current:1},draw:{best:0,current:0},loss:{best:3,current:0},unbeaten:{best:1,current:1},winless:{best:3,current:0},pos_neg:{current:1,best_pos:1,best_neg:3},scored:{best:4,current:2},no_goal:{best:1,current:0},cs:{best:0,current:0},conceded:{best:7,current:7}}}
   },
   "Romagna United":{
-    total:{w:10,d:9,l:15,gf:50,ga:55,score_for:2420.0,score_ag:2442.0,pts:39,avg_pf:71.2,avg_ps:71.8,top_pf:91.0,flop_pf:59.0},
+    total:{w:10,d:9,l:16,gf:50,ga:56,score_for:2485.5,score_ag:2512.5,pts:39,avg_pf:71.0,avg_ps:71.8,top_pf:91.0,flop_pf:59.0},
     home:{w:6,d:3,l:5,gf:24,ga:20,score_for:1008.0,score_ag:982.5,pts:21,avg_pf:72.0,avg_ps:70.2,top_pf:91.0,flop_pf:59.0},
     away:{w:2,d:4,l:8,gf:18,ga:27,score_for:996.5,score_ag:1035.5,pts:10,avg_pf:71.2,avg_ps:74.0,top_pf:83.5,flop_pf:64.5},
-    neutral:{w:2,d:2,l:2,gf:8,ga:8,score_for:415.5,score_ag:424.0,pts:8,avg_pf:69.2,avg_ps:70.7,top_pf:75.0,flop_pf:60.0},
-    last5:{total:{results:["W","L","W","D","L"],avg_pf:71.1,avg_ps:71.9},home:{results:["W","L","W","W","L"],avg_pf:73.4,avg_ps:71.1},away:{results:["L","L","D","W","L"],avg_pf:72.2,avg_ps:74.8},neutral:{results:["W","L","W","D","L"],avg_pf:71.1,avg_ps:71.9}},
-    results:{total:["L","L","D","W","L","L","D","L","L","D","W","D","W","D","L","D","W","L","W","L","L","W","L","D","W","W","L","L","D","W","L","W","D","L"],home:["L","D","L","D","L","W","W","D","W","W","L","W","W","L"],away:["L","W","L","L","D","D","D","L","L","L","L","D","W","L"],neutral:["D","W","L","W","D","L"]},
+    neutral:{w:2,d:2,l:3,gf:8,ga:9,score_for:481.0,score_ag:494.5,pts:8,avg_pf:68.7,avg_ps:70.6,top_pf:75.0,flop_pf:60.0},
+    last5:{total:{results:["L","W","D","L","L"],avg_pf:69.2,avg_ps:71.6},home:{results:["W","L","W","W","L"],avg_pf:73.4,avg_ps:71.1},away:{results:["L","L","D","W","L"],avg_pf:72.2,avg_ps:74.8},neutral:{results:["L","W","D","L","L"],avg_pf:69.2,avg_ps:71.6}},
+    results:{total:["L","L","D","W","L","L","D","L","L","D","W","D","W","D","L","D","W","L","W","L","L","W","L","D","W","W","L","L","D","W","L","W","D","L","L"],home:["L","D","L","D","L","W","W","D","W","W","L","W","W","L"],away:["L","W","L","L","D","D","D","L","L","L","L","D","W","L"],neutral:["D","W","L","W","D","L","L"]},
     clean_sheets:{total:7,home:3,away:2,neutral:2},
-    streaks:{
-      total:{win:{best:2,current:0},draw:{best:1,current:0},loss:{best:2,current:1},unbeaten:{best:5,current:0},winless:{best:6,current:2},pos_neg:{current:-2,best_pos:5,best_neg:6},scored:{best:14,current:5},no_goal:{best:1,current:0},cs:{best:2,current:0},conceded:{best:13,current:2}},
-      home:{win:{best:2,current:0},draw:{best:1,current:0},loss:{best:1,current:1},unbeaten:{best:5,current:0},winless:{best:5,current:1},pos_neg:{current:-1,best_pos:5,best_neg:5},scored:{best:9,current:9},no_goal:{best:1,current:0},cs:{best:2,current:0},conceded:{best:8,current:1}},
-      away:{win:{best:1,current:0},draw:{best:3,current:0},loss:{best:4,current:1},unbeaten:{best:2,current:0},winless:{best:10,current:1},pos_neg:{current:-1,best_pos:2,best_neg:10},scored:{best:7,current:7},no_goal:{best:1,current:0},cs:{best:1,current:0},conceded:{best:6,current:1}},
-      neutral:{win:{best:1,current:0},draw:{best:1,current:0},loss:{best:1,current:1},unbeaten:{best:2,current:0},winless:{best:2,current:2},pos_neg:{current:-2,best_pos:2,best_neg:2},scored:{best:5,current:5},no_goal:{best:1,current:0},cs:{best:1,current:0},conceded:{best:2,current:2}}
-    }
+    streaks:{total:{win:{best:2,current:0},draw:{best:1,current:0},loss:{best:2,current:2},unbeaten:{best:5,current:0},winless:{best:6,current:3},pos_neg:{current:-3,best_pos:5,best_neg:6},scored:{best:14,current:0},no_goal:{best:1,current:1},cs:{best:2,current:0},conceded:{best:13,current:3}},home:{win:{best:2,current:0},draw:{best:1,current:0},loss:{best:1,current:1},unbeaten:{best:5,current:0},winless:{best:5,current:1},pos_neg:{current:-1,best_pos:5,best_neg:5},scored:{best:9,current:9},no_goal:{best:1,current:0},cs:{best:2,current:0},conceded:{best:8,current:1}},away:{win:{best:1,current:0},draw:{best:3,current:0},loss:{best:4,current:1},unbeaten:{best:2,current:0},winless:{best:10,current:1},pos_neg:{current:-1,best_pos:2,best_neg:10},scored:{best:7,current:7},no_goal:{best:1,current:0},cs:{best:1,current:0},conceded:{best:6,current:1}},neutral:{win:{best:1,current:0},draw:{best:1,current:0},loss:{best:2,current:2},unbeaten:{best:2,current:0},winless:{best:3,current:3},pos_neg:{current:-3,best_pos:2,best_neg:3},scored:{best:5,current:0},no_goal:{best:1,current:1},cs:{best:1,current:0},conceded:{best:3,current:3}}}
   },
   "Zdenek Zeman fc":{
-    total:{w:11,d:8,l:15,gf:49,ga:57,score_for:2422.0,score_ag:2473.5,pts:41,avg_pf:71.2,avg_ps:72.8,top_pf:82.5,flop_pf:61.5},
+    total:{w:12,d:8,l:15,gf:52,ga:58,score_for:2501.5,score_ag:2541.0,pts:44,avg_pf:71.5,avg_ps:72.6,top_pf:82.5,flop_pf:61.5},
     home:{w:7,d:6,l:1,gf:26,ga:17,score_for:1027.0,score_ag:980.0,pts:27,avg_pf:73.4,avg_ps:70.0,top_pf:82.5,flop_pf:67.5},
     away:{w:4,d:2,l:8,gf:18,ga:25,score_for:986.0,score_ag:1032.0,pts:14,avg_pf:70.4,avg_ps:73.7,top_pf:80.0,flop_pf:61.5},
-    neutral:{w:0,d:0,l:6,gf:5,ga:15,score_for:409.0,score_ag:461.5,pts:0,avg_pf:68.2,avg_ps:76.9,top_pf:72.0,flop_pf:64.0},
-    last5:{total:{results:["L","L","L","L","L"],avg_pf:68.6,avg_ps:77.3},home:{results:["D","W","W","W","D"],avg_pf:72.0,avg_ps:67.6},away:{results:["L","L","W","L","L"],avg_pf:67.9,avg_ps:76.5},neutral:{results:["L","L","L","L","L"],avg_pf:68.6,avg_ps:77.3}},
-    results:{total:["L","W","W","W","W","L","D","D","W","L","D","L","D","L","W","D","D","W","D","L","W","L","W","W","W","L","D","L","L","L","L","L","L","L"],home:["L","W","W","D","W","D","D","W","D","D","W","W","W","D"],away:["W","W","L","D","L","L","L","D","W","L","L","W","L","L"],neutral:["L","L","L","L","L","L"]},
+    neutral:{w:1,d:0,l:6,gf:8,ga:16,score_for:488.5,score_ag:529.0,pts:3,avg_pf:69.8,avg_ps:75.6,top_pf:79.5,flop_pf:64.0},
+    last5:{total:{results:["L","L","L","L","W"],avg_pf:70.1,avg_ps:75.8},home:{results:["D","W","W","W","D"],avg_pf:72.0,avg_ps:67.6},away:{results:["L","L","W","L","L"],avg_pf:67.9,avg_ps:76.5},neutral:{results:["L","L","L","L","W"],avg_pf:70.1,avg_ps:75.8}},
+    results:{total:["L","W","W","W","W","L","D","D","W","L","D","L","D","L","W","D","D","W","D","L","W","L","W","W","W","L","D","L","L","L","L","L","L","L","W"],home:["L","W","W","D","W","D","D","W","D","D","W","W","W","D"],away:["W","W","L","D","L","L","L","D","W","L","L","W","L","L"],neutral:["L","L","L","L","L","L","W"]},
     clean_sheets:{total:3,home:2,away:1,neutral:0},
-    streaks:{
-      total:{win:{best:4,current:0},draw:{best:2,current:0},loss:{best:7,current:7},unbeaten:{best:5,current:0},winless:{best:9,current:9},pos_neg:{current:-9,best_pos:5,best_neg:9},scored:{best:7,current:0},no_goal:{best:1,current:1},cs:{best:1,current:0},conceded:{best:15,current:10}},
-      home:{win:{best:3,current:0},draw:{best:2,current:1},loss:{best:1,current:0},unbeaten:{best:13,current:13},winless:{best:1,current:0},pos_neg:{current:13,best_pos:13,best_neg:1},scored:{best:14,current:14},no_goal:{best:0,current:0},cs:{best:1,current:0},conceded:{best:7,current:3}},
-      away:{win:{best:2,current:0},draw:{best:1,current:0},loss:{best:3,current:2},unbeaten:{best:2,current:0},winless:{best:6,current:2},pos_neg:{current:-2,best_pos:2,best_neg:6},scored:{best:3,current:1},no_goal:{best:1,current:0},cs:{best:1,current:0},conceded:{best:11,current:2}},
-      neutral:{win:{best:0,current:0},draw:{best:0,current:0},loss:{best:6,current:6},unbeaten:{best:0,current:0},winless:{best:6,current:6},pos_neg:{current:-6,best_pos:0,best_neg:6},scored:{best:2,current:0},no_goal:{best:1,current:1},cs:{best:0,current:0},conceded:{best:6,current:6}}
-    }
+    streaks:{total:{win:{best:4,current:1},draw:{best:2,current:0},loss:{best:7,current:0},unbeaten:{best:5,current:1},winless:{best:9,current:0},pos_neg:{current:1,best_pos:5,best_neg:9},scored:{best:7,current:1},no_goal:{best:1,current:0},cs:{best:1,current:0},conceded:{best:15,current:11}},home:{win:{best:3,current:0},draw:{best:2,current:1},loss:{best:1,current:0},unbeaten:{best:13,current:13},winless:{best:1,current:0},pos_neg:{current:13,best_pos:13,best_neg:1},scored:{best:14,current:14},no_goal:{best:0,current:0},cs:{best:1,current:0},conceded:{best:7,current:3}},away:{win:{best:2,current:0},draw:{best:1,current:0},loss:{best:3,current:2},unbeaten:{best:2,current:0},winless:{best:6,current:2},pos_neg:{current:-2,best_pos:2,best_neg:6},scored:{best:3,current:1},no_goal:{best:1,current:0},cs:{best:1,current:0},conceded:{best:11,current:2}},neutral:{win:{best:1,current:1},draw:{best:0,current:0},loss:{best:6,current:0},unbeaten:{best:1,current:1},winless:{best:6,current:0},pos_neg:{current:1,best_pos:1,best_neg:6},scored:{best:2,current:1},no_goal:{best:1,current:0},cs:{best:0,current:0},conceded:{best:7,current:7}}}
   }
 };
 
@@ -372,9 +318,14 @@ const SPECIAL={
   best_gap:{gap:35.5,home:"Atletico Pajata",away:"FCC Padulo",sh:99.0,sa:63.5,g:30}
 };
 
+const PF_MATCH_RECORDS={
+  top:{team:"Atletico Pajata",opp:"FCC Padulo",pf:99.0,result:"6-0",g:30},
+  flop:{team:"FCC Padulo",opp:"AS Top Gun",pf:56.5,result:"0-1",g:8}
+};
+
 const TEAM_COLORS={"FC Zoolander":"#60a0ff","FCC Padulo":"#26e5c7","F. C. Turris":"#ff6b6b","Magico Pomi":"#f4a7c3","Zdenek Zeman fc":"#ff9f43","Romagna United":"#9b1c4a","AS Top Gun":"#e8ff5a","Atletico Pajata":"#c084fc"};
 const allTeams=Object.keys(DATA).sort((a,b)=>DATA[b].total.pts-DATA[a].total.pts);
-const TOTAL_GIORNATE=34;
+const TOTAL_GIORNATE=35;
 const NEUTRAL_START=29;
 
 function shortName(n){
@@ -388,7 +339,7 @@ function setView(view,btn){
   currentView=view;
   document.querySelectorAll('#toolbar-classifica .toggle-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  const labels={total:`Tutte le partite · ${TOTAL_GIORNATE} giornate`,home:'Solo partite in casa',away:'Solo partite in trasferta',neutral:'Campo neutro · G29-34'};
+  const labels={total:`Tutte le partite · ${TOTAL_GIORNATE} giornate`,home:'Solo partite in casa',away:'Solo partite in trasferta',neutral:'Campo neutro · G29-35'};
   document.getElementById('view-label').textContent=labels[view];
   renderStandings();
 }
@@ -401,16 +352,16 @@ function renderStandings(){
     const posClass=['pos-1','pos-2','pos-3'][idx]||'pos-other';
     const drColor=dr>0?'var(--win)':dr<0?'var(--loss)':'var(--text2)';
     tbody.innerHTML+=`<tr>
-      <td><span class="pos-badge ${posClass}">${idx+1}</span></td>
-      <td><span class="team-name-cell" style="color:${TEAM_COLORS[team]}">${team}</span></td>
+      <td class="pos-col"><span class="pos-badge ${posClass}">${idx+1}</span></td>
+      <td class="team-col"><span class="team-name-cell" style="color:${TEAM_COLORS[team]}">${team}</span></td>
       <td class="center pts-cell">${d.pts}</td>
       <td class="center mono">${d.w+d.d+d.l}</td>
       <td class="center mono">${d.w}</td><td class="center mono">${d.d}</td><td class="center mono">${d.l}</td>
       <td class="center mono">${d.gf}</td><td class="center mono">${d.ga}</td>
       <td class="center mono" style="color:${drColor}">${dr>0?'+':''}${dr}</td>
-      <td class="center score-cell" style="color:var(--accent2)">${d.score_for.toFixed(1)}</td>
+      <td class="center score-cell" style="color:var(--neutral-color)">${d.score_for.toFixed(1)}</td>
       <td class="center score-cell" style="color:var(--text2)">${d.score_ag.toFixed(1)}</td>
-      <td class="center score-cell" style="color:var(--accent2)">${d.avg_pf}</td>
+      <td class="center score-cell" style="color:var(--neutral-color)">${d.avg_pf}</td>
       <td class="center score-cell" style="color:var(--text2)">${d.avg_ps}</td>
       <td style="padding-right:6px"><div class="form-dots">${l5.results.map(r=>`<div class="dot dot-${r}">${r}</div>`).join('')}<span class="form-avg" style="color:var(--accent2)">${l5.avg_pf}</span><span class="form-avg">/ ${l5.avg_ps}</span></div></td>
     </tr>`;
@@ -437,13 +388,11 @@ function buildProgressChart(){
   const labels=Array.from({length:TOTAL_GIORNATE},(_,i)=>i+1>=NEUTRAL_START?`N${i+1}`:`G${i+1}`);
   progressChart=new Chart(document.getElementById('progressChart'),{type:'line',
     data:{labels,datasets:allTeams.map(team=>({label:shortName(team),data:getProgressive(team),borderColor:TEAM_COLORS[team],backgroundColor:TEAM_COLORS[team]+'20',borderWidth:2.5,pointRadius:3,pointHoverRadius:6,tension:0.3,fill:false}))},
-    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},
-      annotation:{annotations:{neutralLine:{type:'line',xMin:NEUTRAL_START-1.5,xMax:NEUTRAL_START-1.5,borderColor:'rgba(192,132,252,0.5)',borderWidth:2,borderDash:[5,5]}}}},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false}},
       scales:{x:{ticks:{color:'#9090a0',font:{family:'JetBrains Mono',size:9}},grid:{color:'#2a2a35'}},y:{ticks:{color:'#9090a0',font:{family:'JetBrains Mono',size:10}},grid:{color:'#2a2a35'}}}}
   });
 }
 function updateProgressChart(){if(!progressChart)return;progressChart.data.datasets.forEach(ds=>{const t=allTeams.find(t=>shortName(t)===ds.label);ds.hidden=!selectedTeams.has(t);});progressChart.update();}
-
 function buildHeatmap(){
   const table=document.getElementById('heatmap-table');
   let html='<thead><tr><th></th>';
@@ -463,7 +412,6 @@ function buildHeatmap(){
   });
   table.innerHTML=html+'</tbody>';
 }
-
 function buildWDLChart(){
   new Chart(document.getElementById('wdlChart'),{type:'bar',
     data:{labels:allTeams.map(shortName),datasets:[
@@ -588,7 +536,6 @@ function renderRecords(){
   const worst=(fn)=>allTeams.reduce((a,b)=>fn(a)<=fn(b)?a:b);
   const sb=(t,k)=>DATA[t].streaks[v][k].best;
   const pnBest=(t,type)=>DATA[t].streaks[v].pos_neg[type];
-
   function pill(icon,label,val,team){
     return `<div class="record-pill"><span class="record-pill-icon">${icon}</span><span class="record-pill-label">${label}</span><span class="record-pill-val">${val}</span><span class="record-pill-team" style="color:${TEAM_COLORS[team]}">${shortName(team)}</span></div>`;
   }
@@ -599,16 +546,25 @@ function renderRecords(){
   function row(...items){return `<div class="record-row">${items.join('')}</div>`;}
 
   const bPts=best(t=>g(t,'pts')),wPts=worst(t=>g(t,'pts'));
-  const bW=best(t=>g(t,'w')),bL=best(t=>g(t,'l'));
-  const bGF=best(t=>g(t,'gf')),bGA=best(t=>g(t,'ga'));
+  const bW=best(t=>g(t,'w')),wW=worst(t=>g(t,'w'));
+  const bL=best(t=>g(t,'l')),wL=worst(t=>g(t,'l'));
+  const bGF=best(t=>g(t,'gf')),wGF=worst(t=>g(t,'gf'));
+  const bGA=best(t=>g(t,'ga')),wGA=worst(t=>g(t,'ga'));
   const bDR=best(t=>g(t,'gf')-g(t,'ga')),wDR=worst(t=>g(t,'gf')-g(t,'ga'));
   const bAvgPF=best(t=>g(t,'avg_pf')),wAvgPF=worst(t=>g(t,'avg_pf'));
+  const bAvgPS=best(t=>g(t,'avg_ps')),wAvgPS=worst(t=>g(t,'avg_ps'));
   const bCS=best(t=>DATA[t].clean_sheets[v]),wCS=worst(t=>DATA[t].clean_sheets[v]);
   const bSW=best(t=>sb(t,'win')),bSL=best(t=>sb(t,'loss'));
   const bSU=best(t=>pnBest(t,'best_pos')),bSWL=best(t=>pnBest(t,'best_neg'));
   const bSC=best(t=>sb(t,'cs')),bSCon=best(t=>sb(t,'conceded'));
   const bSG=best(t=>sb(t,'scored')),bSNG=best(t=>sb(t,'no_goal'));
   const bSD=best(t=>sb(t,'draw'));
+
+  const pfMatchRows=v==='total'?(()=>{
+    const tm=PF_MATCH_RECORDS.top,fm=PF_MATCH_RECORDS.flop;
+    return row(pillFull('⭐','PF più alto — singola giornata',tm.pf,`${shortName(tm.team)} vs ${shortName(tm.opp)} ${tm.result} (G${tm.g})`)) +
+           row(pillFull('💤','PF più basso — singola giornata',fm.pf,`${shortName(fm.team)} vs ${shortName(fm.opp)} ${fm.result} (G${fm.g})`));
+  })():'';
 
   const specialRows=v==='total'?`
     ${row(pillFull('🔥','Punteggio somma più alto',SPECIAL.best_sum.sum,`${shortName(SPECIAL.best_sum.home)} ${SPECIAL.best_sum.sh} · ${shortName(SPECIAL.best_sum.away)} ${SPECIAL.best_sum.sa} (G${SPECIAL.best_sum.g})`))}
@@ -618,20 +574,42 @@ function renderRecords(){
 
   sec.innerHTML=
     row(pair(pill('🥇','Più punti',g(bPts,'pts')+' pts',bPts),pill('📉','Meno punti',g(wPts,'pts')+' pts',wPts)))+
-    row(pair(pill('🏆','Più vittorie',g(bW,'w')+' V',bW),pill('💀','Più sconfitte',g(bL,'l')+' S',bL)))+
-    row(pair(pill('⚽','Più gol segnati',g(bGF,'gf')+' GF',bGF),pill('🚨','Più gol subiti',g(bGA,'ga')+' GS',bGA)))+
+    row(pair(pill('🏆','Più vittorie',g(bW,'w')+' V',bW),pill('🕊️','Meno vittorie',g(wW,'w')+' V',wW)))+
+    row(pair(pill('💀','Più sconfitte',g(bL,'l')+' S',bL),pill('🛡','Meno sconfitte',g(wL,'l')+' S',wL)))+
+    row(pair(pill('⚽','Più gol segnati',g(bGF,'gf')+' GF',bGF),pill('😶','Meno gol segnati',g(wGF,'gf')+' GF',wGF)))+
+    row(pair(pill('🚨','Più gol subiti',g(bGA,'ga')+' GS',bGA),pill('🧱','Meno gol subiti',g(wGA,'ga')+' GS',wGA)))+
     row(pair(pill('📊','Miglior DR','+'+(g(bDR,'gf')-g(bDR,'ga')),bDR),pill('📉','Peggior DR',''+(g(wDR,'gf')-g(wDR,'ga')),wDR)))+
     row(pair(pill('📈','∅PF più alta',g(bAvgPF,'avg_pf'),bAvgPF),pill('📉','∅PF più bassa',g(wAvgPF,'avg_pf'),wAvgPF)))+
+    row(pair(pill('📈','∅PS più alta',g(bAvgPS,'avg_ps'),bAvgPS),pill('📉','∅PS più bassa',g(wAvgPS,'avg_ps'),wAvgPS)))+
     row(pair(pill('🧤','Più clean sheet',DATA[bCS].clean_sheets[v]+' CS',bCS),pill('🙈','Meno clean sheet',DATA[wCS].clean_sheets[v]+' CS',wCS)))+
     row(pair(pill('🔥','Serie vittorie',sb(bSW,'win')+' di fila',bSW),pill('☠️','Serie sconfitte',sb(bSL,'loss')+' di fila',bSL)))+
     row(pair(pill('🛡','Serie positiva',pnBest(bSU,'best_pos')+' di fila',bSU),pill('😰','Serie negativa',pnBest(bSWL,'best_neg')+' di fila',bSWL)))+
     row(pair(pill('🧤','Serie CS',sb(bSC,'cs')+' di fila',bSC),pill('💥','Serie gol subiti',sb(bSCon,'conceded')+' di fila',bSCon)))+
     row(pair(pill('⚽','Serie in gol',sb(bSG,'scored')+' di fila',bSG),pill('🫙','Serie a secco',sb(bSNG,'no_goal')+' di fila',bSNG)))+
     row(pair(pill('🤝','Serie pareggi',sb(bSD,'draw')+' di fila',bSD),'<div></div>'))+
-    specialRows;
+    pfMatchRows+specialRows;
 }
 
 // ── TAB SWITCHING ─────────────────────────────────────────────────────────────
+const PF_CUMULATIVE={
+  "AS Top Gun":[74.5,145.5,217.5,287.5,350.5,419.0,493.5,562.5,634.5,707.5,775.0,844.0,911.0,980.5,1053.0,1123.0,1195.5,1280.0,1349.0,1420.5,1495.5,1566.5,1628.5,1692.5,1754.5,1824.0,1891.5,1962.0,2032.5,2098.0,2178.0,2243.0,2318.0,2380.5,2443.0],
+  "Atletico Pajata":[75.5,143.5,210.0,279.0,355.0,431.5,499.5,573.0,641.0,719.0,791.5,860.0,923.0,983.5,1045.5,1117.0,1192.0,1259.0,1319.5,1385.0,1452.0,1539.5,1612.5,1679.0,1751.5,1815.5,1887.0,1959.5,2021.5,2120.5,2188.0,2270.5,2342.0,2420.5,2488.0],
+  "F. C. Turris":[78.0,145.0,208.5,273.0,337.5,410.0,497.5,564.0,641.5,709.5,777.5,850.5,917.0,989.5,1060.0,1129.0,1206.0,1279.0,1348.0,1425.5,1489.5,1562.0,1626.5,1701.0,1765.5,1844.0,1924.0,1994.5,2072.5,2146.5,2215.5,2282.5,2363.5,2441.5,2519.0],
+  "FC Zoolander":[74.0,140.5,226.5,301.5,374.0,445.0,514.5,586.0,651.5,734.5,809.0,874.0,936.5,1018.5,1095.5,1164.0,1240.5,1314.0,1383.5,1465.5,1526.0,1599.0,1680.5,1752.0,1826.0,1897.0,1969.5,2047.0,2111.5,2181.5,2256.5,2327.5,2390.0,2463.0,2530.5],
+  "FCC Padulo":[80.0,160.0,235.0,305.0,371.0,439.5,509.5,566.0,628.0,700.5,767.5,857.5,931.0,990.5,1073.5,1144.5,1219.5,1297.5,1370.0,1457.5,1537.5,1626.5,1692.0,1757.0,1831.5,1905.0,1973.5,2059.0,2126.5,2190.0,2252.5,2331.5,2398.5,2466.5,2537.0],
+  "Magico Pomi":[74.5,151.5,217.5,284.5,352.0,412.0,487.5,563.0,625.0,700.5,772.5,847.0,925.5,1007.5,1081.0,1151.0,1212.5,1284.5,1351.5,1427.5,1502.0,1577.0,1640.0,1714.0,1777.5,1853.0,1921.5,1998.5,2073.5,2143.0,2216.0,2287.0,2351.5,2418.0,2489.5],
+  "Romagna United":[67.5,139.0,207.0,290.5,363.5,430.5,502.5,561.5,631.0,708.0,778.5,845.0,936.0,1000.5,1069.5,1139.5,1205.5,1276.5,1355.0,1426.0,1492.0,1571.5,1639.0,1714.5,1791.0,1868.0,1934.5,2004.5,2064.5,2139.5,2207.0,2276.5,2345.5,2420.0,2485.5],
+  "Zdenek Zeman fc":[68.5,148.0,223.5,299.0,371.0,436.0,507.5,580.5,660.5,730.0,801.5,864.5,939.0,1011.5,1094.0,1162.5,1233.5,1313.5,1381.0,1442.5,1518.5,1590.0,1663.0,1736.5,1812.5,1877.0,1944.5,2013.0,2079.0,2151.0,2215.0,2285.5,2356.5,2422.0,2501.5],
+};
+function buildPfChart(){
+  const labels=Array.from({length:TOTAL_GIORNATE},(_,i)=>i+1>=NEUTRAL_START?`N${i+1}`:`G${i+1}`);
+  new Chart(document.getElementById('pfChart'),{type:'line',
+    data:{labels,datasets:allTeams.map(team=>({label:shortName(team),data:PF_CUMULATIVE[team],borderColor:TEAM_COLORS[team],backgroundColor:TEAM_COLORS[team]+'20',borderWidth:2.5,pointRadius:3,pointHoverRadius:6,tension:0.3,fill:false}))},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false}},
+      scales:{x:{ticks:{color:'#9090a0',font:{family:'JetBrains Mono',size:9}},grid:{color:'#2a2a35'}},y:{ticks:{color:'#9090a0',font:{family:'JetBrains Mono',size:10}},grid:{color:'#2a2a35'}}}}
+  });
+}
+
 const initialized={classifica:true,andamento:false,performance:false,topflop:false};
 const toolbars={classifica:'toolbar-classifica',andamento:'toolbar-andamento',performance:'toolbar-performance',topflop:'toolbar-topflop'};
 function switchTab(name,event){
@@ -643,7 +621,7 @@ function switchTab(name,event){
   document.getElementById(toolbars[name]).style.display='flex';
   if(!initialized[name]){
     initialized[name]=true;
-    if(name==='andamento'){buildProgressChart();buildHeatmap();buildAndamentoFilter();buildWDLChart();}
+    if(name==='andamento'){buildProgressChart();buildHeatmap();buildAndamentoFilter();buildWDLChart();buildPfChart();}
     if(name==='performance'){buildStreakChart();}
     if(name==='topflop'){renderScoresGrid();renderRecords();}
   }
