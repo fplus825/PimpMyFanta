@@ -114,7 +114,7 @@
       <div class="stats"><div class="sl">
         <div class="sb"><div class="fds" id="s2sq"></div><div class="slbl">Squadre</div></div>
         <div class="sb"><div class="fds" id="s2gj"></div><div class="slbl">Giornate</div></div>
-      </div><div class="badge live"><div class="led lg"></div>Live</div></div>
+      </div><div class="badge done"><div class="led ld"></div>Terminato</div></div>
       <div class="arr">&#8594;</div>
     </a>
   </div>
@@ -125,7 +125,7 @@ function flipName(id,toks){const el=document.getElementById(id);for(const t of t
 flipName('n1',['E','X','-','I','I','I',{sup:'A'},'F',{off:true},'P','L','U','S']);
 flipName('n2',['F','A','N','T','A','C','C','I','T','U','A']);
 function flipDig(id,num){const el=document.getElementById(id);for(const c of num.toString()){const d=document.createElement('div');d.className='fd';d.textContent=c;el.appendChild(d);}}
-flipDig('s1sq',8);flipDig('s1gj',28);flipDig('s2sq',8);flipDig('s2gj',34);
+flipDig('s1sq',8);flipDig('s1gj',28);flipDig('s2sq',8);flipDig('s2gj',35);
 
 (function(){
   const svg=document.getElementById('clk'),NS='http://www.w3.org/2000/svg',cx=30,cy=30,r=26;
