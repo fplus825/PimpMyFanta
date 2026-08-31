@@ -97,7 +97,7 @@
   <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
   <div class="fn" id="fn"></div>
   <div class="grid" id="grid">
-    <a class="card" id="c1" href="lega-exiiiaf.html">
+    <a class="card" id="c1" href="shell.html?lega=exiiiaf">
       <div class="bolt btl"></div><div class="bolt btr"></div><div class="bolt bbl"></div><div class="bolt bbr"></div>
       <div class="fname" id="n1"></div>
       <div class="season">Season 30</div>
@@ -107,7 +107,7 @@
       </div><div class="badge done"><div class="led ld"></div>Terminato</div></div>
       <div class="arr">&#8594;</div>
     </a>
-    <a class="card" id="c2" href="fantaccitua.html">
+    <a class="card" id="c2" href="shell.html?lega=fantaccitua">
       <div class="bolt btl"></div><div class="bolt btr"></div><div class="bolt bbl"></div><div class="bolt bbr"></div>
       <div class="fname" id="n2"></div>
       <div class="season">Season 18</div>
@@ -117,6 +117,16 @@
       </div><div class="badge done"><div class="led ld"></div>Terminato</div></div>
       <div class="arr">&#8594;</div>
     </a>
+    <a class="card" id="c3" href="shell.html?lega=monteverde">
+      <div class="bolt btl"></div><div class="bolt btr"></div><div class="bolt bbl"></div><div class="bolt bbr"></div>
+      <div class="fname" id="n3"></div>
+      <div class="season">Season 19</div>
+      <div class="stats"><div class="sl">
+        <div class="sb"><div class="fds" id="s3sq"></div><div class="slbl">Squadre</div></div>
+        <div class="sb"><div class="fds" id="s3gj"></div><div class="slbl">Giornate</div></div>
+      </div><div class="badge done"><div class="led ld"></div>Pre-Season</div></div>
+      <div class="arr">&#8594;</div>
+    </a>
   </div>
   <div class="footer" id="ftr"></div>
 </div>
@@ -124,8 +134,9 @@
 function flipName(id,toks){const el=document.getElementById(id);for(const t of toks){const d=document.createElement('div');if(typeof t==='string'){d.className=t===' '?'fc sp':'fc';if(t!==' ')d.textContent=t;}else if(t.off){d.className='fc off';}else if(t.sup){d.className='fc sup';d.textContent=t.sup;}el.appendChild(d);}}
 flipName('n1',['E','X','-','I','I','I',{sup:'A'},'F',{off:true},'P','L','U','S']);
 flipName('n2',['F','A','N','T','A','C','C','I','T','U','A']);
+flipName('n3',['M','O','N','T','E','V','E','R','D','E']);
 function flipDig(id,num){const el=document.getElementById(id);for(const c of num.toString()){const d=document.createElement('div');d.className='fd';d.textContent=c;el.appendChild(d);}}
-flipDig('s1sq',8);flipDig('s1gj',28);flipDig('s2sq',8);flipDig('s2gj',35);
+flipDig('s1sq',8);flipDig('s1gj',28);flipDig('s2sq',8);flipDig('s2gj',35);flipDig('s3sq',12);flipDig('s3gj',22);
 
 (function(){
   const svg=document.getElementById('clk'),NS='http://www.w3.org/2000/svg',cx=30,cy=30,r=26;
@@ -142,7 +153,7 @@ flipDig('s1sq',8);flipDig('s1gj',28);flipDig('s2sq',8);flipDig('s2gj',35);
   const ml=document.createElementNS(NS,'text');ml.setAttribute('x',cx);ml.setAttribute('y',cy+12);ml.setAttribute('text-anchor','middle');ml.setAttribute('font-family','Share Tech Mono,monospace');ml.setAttribute('font-size','5');ml.setAttribute('fill','#2a2208');ml.textContent=`${mins}'`;svg.appendChild(ml);
 })();
 
-(function(){const p=new URLSearchParams(window.location.search),lega=p.get('lega');const grid=document.getElementById('grid'),notice=document.getElementById('fn');if(lega==='exiiiaf'){document.getElementById('c2').classList.add('hidden');grid.classList.add('single');notice.textContent='— Lega Ex-IIIAF Plus —';notice.classList.add('vis');}else if(lega==='fantaccitua'){document.getElementById('c1').classList.add('hidden');grid.classList.add('single');notice.textContent='— FantAccitua —';notice.classList.add('vis');}})();
+(function(){const p=new URLSearchParams(window.location.search),lega=p.get('lega');const grid=document.getElementById('grid'),notice=document.getElementById('fn');if(lega==='exiiiaf'){document.getElementById('c2').classList.add('hidden');document.getElementById('c3').classList.add('hidden');grid.classList.add('single');notice.textContent='— Lega Ex-IIIAF Plus —';notice.classList.add('vis');}else if(lega==='fantaccitua'){document.getElementById('c1').classList.add('hidden');document.getElementById('c3').classList.add('hidden');grid.classList.add('single');notice.textContent='— FantAccitua —';notice.classList.add('vis');}else if(lega==='monteverde'){document.getElementById('c1').classList.add('hidden');document.getElementById('c2').classList.add('hidden');grid.classList.add('single');notice.textContent='— Lega Monteverde —';notice.classList.add('vis');}})();
 
 const tls=[],fdots=[];
 const tll=document.getElementById('tll');

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pimp My Fanta</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0a0f;--bg2:#111118;--bg3:#18181f;--border:#2a2a35;--accent:#e8ff5a;--accent2:#5affb8;--text:#f0f0f5;--text2:#9090a0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;overflow:hidden}
+
+  header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 28px;display:flex;align-items:center;gap:14px;position:relative;z-index:200;flex-shrink:0}
+
+  .burger-btn{width:34px;height:34px;flex-shrink:0;border:1px solid var(--border);border-radius:8px;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0}
+  .burger-btn span{display:block;width:16px;height:2px;background:var(--text);border-radius:2px;transition:transform .2s,opacity .2s}
+  .burger-btn.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .burger-btn.open span:nth-child(2){opacity:0}
+  .burger-btn.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+  .burger-btn:hover{border-color:var(--accent)}
+
+  .logo-badge{width:34px;height:34px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+  header h1{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:2px}
+  header p{font-size:11px;color:var(--text2);letter-spacing:1px;text-transform:uppercase}
+
+  .burger-menu{position:absolute;top:calc(100% + 6px);left:28px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;min-width:220px;padding:6px;display:none;flex-direction:column;gap:2px;box-shadow:0 8px 24px rgba(0,0,0,.4);z-index:250}
+  .burger-menu.open{display:flex}
+  .menu-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;border:none;background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:left;width:100%}
+  .menu-item:hover{background:var(--bg3);color:var(--text)}
+  .menu-item.active{background:var(--bg3);color:var(--accent)}
+  .menu-item .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:0;flex-shrink:0}
+  .menu-item.active .dot{opacity:1}
+  .menu-divider{height:1px;background:var(--border);margin:6px 4px}
+  .menu-footer{padding:8px 12px;font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px}
+
+  main{flex:1;position:relative;overflow:hidden}
+  .view-frame{position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:none}
+  .view-frame.active{display:block}
+
+  .error-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px}
+  .error-screen h2{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px}
+  .error-screen p{color:var(--text2);font-size:13px;max-width:360px}
+  .error-screen a{color:var(--accent);text-decoration:none;font-size:13px;border:1px solid var(--border);padding:8px 16px;border-radius:8px}
+  .error-screen a:hover{border-color:var(--accent)}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+  // ------------------------------------------------------------
+  // Configurazione leghe: quali feature sono attive e a quale
+  // risorsa puntano. In futuro sostituita da query su lega_funzionalita.
+  // ------------------------------------------------------------
+  const LEGHE = {
+    exiiiaf: {
+      nome: "Lega Ex-IIIAF Plus",
+      features: { dashboard: "lega-exiiiaf.html" }
+    },
+    fantaccitua: {
+      nome: "FantAccitua",
+      features: { dashboard: "fantaccitua.html" }
+    },
+    monteverde: {
+      nome: "Lega Monteverde",
+      features: { rose_evo: "rose_evo/index.html" }
+    }
+  };
+
+  const FEATURE_META = {
+    dashboard: { label: "🏆 Dashboard", icon: "🏆", subtitle: "FANTACALCIO · DASHBOARD STAGIONALE" },
+    rose_evo: { label: "📝 Rose & Contratti", icon: "📝", subtitle: "FANTACALCIO · ROSE E CONTRATTI" }
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const legaSlug = params.get("lega");
+  const lega = legaSlug ? LEGHE[legaSlug] : null;
+
+  const app = document.getElementById("app");
+
+  if (!lega) {
+    app.innerHTML = `
+      <div class="error-screen">
+        <h2>Lega non trovata</h2>
+        <p>Il parametro "lega" nell'indirizzo non è valido o è assente. Torna alla home per scegliere la tua lega.</p>
+        <a href="index.html">Torna alla home</a>
+      </div>`;
+  } else {
+    renderShell(lega);
+  }
+
+  function renderShell(lega) {
+    const featureKeys = Object.keys(lega.features);
+    const firstKey = featureKeys[0];
+
+    const menuItemsHtml = featureKeys.map((key, i) => `
+      <button class="menu-item${i === 0 ? " active" : ""}" data-view="${key}" data-label="${FEATURE_META[key].subtitle}">
+        <span class="dot"></span> ${FEATURE_META[key].label}
+      </button>`).join("");
+
+    const framesHtml = featureKeys.map((key, i) => `
+      <iframe id="frame-${key}" class="view-frame${i === 0 ? " active" : ""}" ${i === 0 ? `src="${lega.features[key]}"` : `data-src="${lega.features[key]}"`}></iframe>`).join("");
+
+    app.innerHTML = `
+      <header>
+        <button class="burger-btn" id="burgerBtn" aria-label="Apri menu"><span></span><span></span><span></span></button>
+        <div class="logo-badge">⚽</div>
+        <div>
+          <h1>${lega.nome}</h1>
+          <p id="subtitle">${FEATURE_META[firstKey].subtitle}</p>
+        </div>
+        <nav class="burger-menu" id="burgerMenu">
+          ${menuItemsHtml}
+          <div class="menu-divider"></div>
+          <div class="menu-footer">${lega.nome}</div>
+        </nav>
+      </header>
+      <main>${framesHtml}</main>
+    `;
+
+    const burgerBtn = document.getElementById("burgerBtn");
+    const burgerMenu = document.getElementById("burgerMenu");
+    const subtitle = document.getElementById("subtitle");
+    const menuItems = document.querySelectorAll(".menu-item");
+    const frames = document.querySelectorAll(".view-frame");
+
+    burgerBtn.addEventListener("click", () => {
+      burgerBtn.classList.toggle("open");
+      burgerMenu.classList.toggle("open");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!burgerMenu.contains(e.target) && !burgerBtn.contains(e.target)) {
+        burgerBtn.classList.remove("open");
+        burgerMenu.classList.remove("open");
+      }
+    });
+
+    menuItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        const view = item.dataset.view;
+
+        menuItems.forEach((i) => i.classList.remove("active"));
+        item.classList.add("active");
+        subtitle.textContent = item.dataset.label;
+
+        frames.forEach((f) => f.classList.remove("active"));
+        const target = document.getElementById("frame-" + view);
+        if (!target.getAttribute("src") && target.dataset.src) {
+          target.setAttribute("src", target.dataset.src);
+        }
+        target.classList.add("active");
+
+        burgerBtn.classList.remove("open");
+        burgerMenu.classList.remove("open");
+      });
+    });
+  }
+</script>
+
+</body>
+</html>
